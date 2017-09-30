@@ -24,8 +24,10 @@ namespace SITC.AI
         {
             InitPositions();
         }
+        #endregion Lifecycle
 
-        private void InitPositions()
+        #region API
+        public void InitPositions()
         {
             _positions = new List<Transform>();
 
@@ -34,9 +36,7 @@ namespace SITC.AI
                 _positions.Add(transform.GetChild(i));
             }
         }
-        #endregion Lifecycle
 
-        #region API
         public static Transform GetNextTarget(Vector3 position)
         {
             if (Instance == null)
