@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Controls\InputHandler.cs" />
     <Compile Include="Assets\Scripts\Entities\Entity.cs" />
     <Compile Include="Assets\Scripts\Entities\EntityConfiguration.cs" />
+    <Compile Include="Assets\Scripts\Entities\EntityManager.cs" />
     <Compile Include="Assets\Scripts\Tools\Singleton.cs" />
     <Compile Include="Assets\Scripts\Tools\SitcBehaviour.cs" />
     <Compile Include="Assets\Scripts\Tools\UnityHelper.cs" />
