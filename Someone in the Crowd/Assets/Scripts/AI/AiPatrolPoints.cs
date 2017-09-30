@@ -13,6 +13,29 @@ namespace SITC.AI
         private List<Transform> _positions = null;
         #endregion Members
 
+        #region Lifecycle
+        protected override void Init()
+        {
+            base.Init();
+            InitPositions();
+        }
+
+        private void OnValidate()
+        {
+            InitPositions();
+        }
+
+        private void InitPositions()
+        {
+            _positions = new List<Transform>();
+
+            for (int i = 0, count = transform.childCount; i < count; ++i)
+            {
+                _positions.Add(transform.GetChild(i));
+            }
+        }
+        #endregion Lifecycle
+
         #region API
         public static Transform GetNextTarget(Vector3 position)
         {
