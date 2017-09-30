@@ -27,6 +27,7 @@ namespace SITC.Controls
         private Entity _entity = null;
         private Camera _camera = null;
         private AlertCone _cone = null;
+        private bool _canceledCone = false;
         #endregion Private members
 
         #region Getters
@@ -146,6 +147,7 @@ namespace SITC.Controls
         {
             if (MustCancelCone())
             {
+                _canceledCone = true;
                 Cone.StopCone(true);
             }
             else if (CanGrowCone())
@@ -163,6 +165,14 @@ namespace SITC.Controls
 
         private bool CanGrowCone()
         {
+            if (_canceledCone)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    _canceledCone = false;
+                }
+                return ! _canceledCone;
+            }
             return Input.GetMouseButton(0);
         }
 
