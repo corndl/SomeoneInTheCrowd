@@ -70,26 +70,26 @@ MonoBehaviour:
     - serializedVersion: 2
       time: 0
       value: -1
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
       time: 0.1655297
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
       time: 0.834772
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -99,15 +99,27 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 2
       time: -1
-      value: 0.1
-      inSlope: 0
-      outSlope: 0
+      value: 0
+      inSlope: 0.99999976
+      outSlope: 0.99999976
       tangentMode: 34
     - serializedVersion: 2
-      time: 1
+      time: -0.9
       value: 0.1
       inSlope: 0
       outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.9
+      value: 0.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: -0.99999976
+      outSlope: -0.99999976
       tangentMode: 34
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -135,25 +147,43 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 2
       time: -1
-      value: -0.1
-      inSlope: 0.1
-      outSlope: 0.1
+      value: -0.035
+      inSlope: 0.030000001
+      outSlope: 0.030000001
       tangentMode: 34
     - serializedVersion: 2
       time: 1
-      value: 0.1
-      inSlope: 0.1
-      outSlope: 0.1
+      value: 0.025
+      inSlope: 0.030000001
+      outSlope: 0.030000001
       tangentMode: 34
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
   _alertConvictionImpact:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 2
+      time: -1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0
+      value: 0.1
+      inSlope: 0.1
+      outSlope: 0.1
+      tangentMode: 34
+    - serializedVersion: 2
+      time: 1
+      value: 0.2
+      inSlope: 0.1
+      outSlope: 0.1
+      tangentMode: 34
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   _hairSprites:
   - {fileID: 21300000, guid: 8eab6d5b0c0952e408d8074dab807e6d, type: 3}
   - {fileID: 21300000, guid: c152a95d4291c3e4d9b17ac47f494bf6, type: 3}
