@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 4629289256961102}
   - component: {fileID: 114653242164495300}
   - component: {fileID: 114417203144654134}
-  - component: {fileID: 114891712191433676}
+  - component: {fileID: 114745746499506512}
   m_Layer: 0
   m_Name: EntityAI
   m_TagString: Untagged
@@ -373,7 +373,7 @@ MonoBehaviour:
   _hairC: {fileID: 212434364445740116}
   _headC: {fileID: 212581599817839156}
   _bodyC: {fileID: 212771223909445152}
---- !u!114 &114891712191433676
+--- !u!114 &114745746499506512
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

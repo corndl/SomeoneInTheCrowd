@@ -99,15 +99,15 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 2
       time: -1
-      value: -1
-      inSlope: 1
-      outSlope: 1
+      value: 0.1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
     - serializedVersion: 2
       time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
+      value: 0.1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -135,19 +135,25 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 2
       time: -1
-      value: -1
-      inSlope: 1
-      outSlope: 1
+      value: -0.1
+      inSlope: 0.1
+      outSlope: 0.1
       tangentMode: 34
     - serializedVersion: 2
       time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
+      value: 0.1
+      inSlope: 0.1
+      outSlope: 0.1
       tangentMode: 34
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  _alertConvictionImpact:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _hairSprites:
   - {fileID: 21300000, guid: 8eab6d5b0c0952e408d8074dab807e6d, type: 3}
   - {fileID: 21300000, guid: c152a95d4291c3e4d9b17ac47f494bf6, type: 3}
