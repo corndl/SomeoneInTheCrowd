@@ -95,6 +95,26 @@ namespace SITC
 
             _face.SetSprite(sprite);
             _faceC.SetSprite(sprite);
+
+            Color c;
+
+            if (_conviction == 0f)
+            {
+                c = EntityConfiguration.NeutralColor;
+            }
+            else if (_conviction > 0f)
+            {
+                c = Color.Lerp(EntityConfiguration.NeutralColor, EntityConfiguration.ResistantColor, _conviction);
+            }
+            else
+            {
+                c = Color.Lerp(EntityConfiguration.NeutralColor, EntityConfiguration.ConvictionColor, -_conviction);
+            }
+
+            _bodyC.SetColor(c);
+            _hairC.SetColor(c);
+            _faceC.SetColor(c);
+            _headC.SetColor(c);
         }
 
         public void AddConviction(float delta)

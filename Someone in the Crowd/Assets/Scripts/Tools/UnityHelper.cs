@@ -40,6 +40,14 @@ namespace SITC.Tools
                 renderer.flipX = toggle;
             }
         }
+
+        public static void SetColor(this SpriteRenderer renderer, Color color)
+        {
+            if (renderer != null)
+            {
+                renderer.color = color;
+            }
+        }
         #endregion Sprit
 
         #region List

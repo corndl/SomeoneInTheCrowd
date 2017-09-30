@@ -1,5 +1,7 @@
 ﻿using SITC.AI;
 using SITC.Tools;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SITC.Controls
@@ -98,7 +100,7 @@ namespace SITC.Controls
 
         public void StopCone(bool cancel)
         {
-            if (! cancel)
+            if (!cancel)
             {
                 AlertBypassers();
             }
@@ -126,23 +128,21 @@ namespace SITC.Controls
         #region Alert
         private void AlertBypassers()
         {
-            EntityAI[] entities = FindObjectsOfType<EntityAI>();
-            if (entities.Length == 0)
+            List<EntityAI> entities = FindObjectsOfType<EntityAI>().ToList();
+            entities.RemoveAll(ai => !InCone(ai.transform.position, _left, _right));
+
+            if (entities.Count == 0)
             {
-                return; 
+                return;
             }
 
             float conviction = Entity.GetConviction();
             float intensity = EntityConfiguration.AlertConvictionImpact.Evaluate(conviction);
-            intensity /= entities.Length;
+            intensity /= entities.Count;
 
             foreach (var ai in entities)
             {
-                bool inCone = InCone(ai.transform.position, _left, _right);
-                if (inCone)
-                {
-                    ai.Alert(intensity);
-                }
+                ai.Alert(intensity);
             }
         }
 

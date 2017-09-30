@@ -39,6 +39,13 @@ namespace SITC
         private float _minimumConvictionForResistant = .5f;
         [SerializeField]
         private Sprite _resistantSprite = null;
+
+        [Header("Conviction colors"), SerializeField]
+        private Color _convictionColor = Color.red;
+        [SerializeField]
+        private Color _neutralColor = Color.white;
+        [SerializeField]
+        private Color _resistantColor = Color.blue;
         #endregion Members
 
         #region Public getters
@@ -59,6 +66,10 @@ namespace SITC
         public static Sprite NeutralSprite { get { return (Instance != null) ? Instance._neutralSprite : null; } }
         public static float MinimumConvictionForResistant { get { return (Instance != null) ? Instance._minimumConvictionForResistant : .5f; } }
         public static Sprite ResistantSprite { get { return (Instance != null) ? Instance._resistantSprite : null; } }
+
+        public static Color ConvictionColor { get { return (Instance != null) ? Instance._convictionColor : Color.red; } }
+        public static Color NeutralColor { get { return (Instance != null) ? Instance._neutralColor : Color.white; } }
+        public static Color ResistantColor { get { return (Instance != null) ? Instance._resistantColor : Color.blue; } }
         #endregion Public getters
     }
 }
