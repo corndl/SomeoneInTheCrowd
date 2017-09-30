@@ -29,7 +29,29 @@ namespace SITC.Entities
             InfluenceNeighbours();
         }
         #endregion Lifecycle
-        
+
+        #region API
+        public static Entity GetOppressionTarget(Entity oppressor)
+        {
+            List<Entity> potentials = new List<Entity>(Instance.Entities);
+            potentials.RemoveAll(e => Vector3.Distance(oppressor.transform.position, e.transform.position) > AiConfiguration.SearchResistantRange);
+
+            float maxConviction = 0f;
+            Entity target = null;
+
+            foreach (var entity in potentials)
+            {
+                if (entity.GetConviction() > maxConviction)
+                {
+                    maxConviction = entity.GetConviction();
+                    target = entity;
+                }
+            }
+
+            return target;
+        }
+        #endregion API
+
         #region Conviction
         private void RandomizeInitialConviction()
         {

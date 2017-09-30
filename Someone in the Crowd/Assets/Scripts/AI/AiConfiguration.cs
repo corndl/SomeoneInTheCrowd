@@ -19,6 +19,11 @@ namespace SITC
         private float _aiTargetGizmoRadius = 1f;
         [SerializeField]
         private Color _aiTargetLinkGizmoColor = Color.magenta;
+
+        [Header("Oppression"), SerializeField]
+        private float _searchResistantRange = 5f;
+        //[SerializeField]
+        //private float _
         #endregion Members
 
         #region Public getters
@@ -30,6 +35,8 @@ namespace SITC
         public static Color AiTargetLinkGizmoColor { get { return (Instance != null) ? Instance._aiTargetLinkGizmoColor : Color.red; } }
 
         public static GUIStyle BoldStyle { get { GUIStyle style = new GUIStyle(); style.fontStyle = FontStyle.Bold; return style; } }
+        
+        public static float SearchResistantRange { get { return (Instance != null) ? Instance._searchResistantRange : 5f; } }
         #endregion Public getters
     }
 }

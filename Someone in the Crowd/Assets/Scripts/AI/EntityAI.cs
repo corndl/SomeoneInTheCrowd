@@ -1,5 +1,5 @@
-﻿using SITC.Tools;
-using System.Collections.Generic;
+﻿using SITC.Entities;
+using SITC.Tools;
 using UnityEngine;
 
 namespace SITC.AI
@@ -26,9 +26,15 @@ namespace SITC.AI
         #region Private members
         private Entity _entity = null;
         private EAIState _currentState = EAIState.RoamingPatrol;
+
+        // Roaming
         private Transform _target = null;
         private float _targetReachedTime = 0f;
         private float _delayBeforeNextTarget = 0f;
+
+        // Go to entity
+        private Entity _targetEntity = null;
+
         private float _witnessTime = 0f;
         private float _currentSpeed = 1f;
         private bool _oppressor = false;
@@ -63,11 +69,19 @@ namespace SITC.AI
                     }
                     Pathfinding();
                     break;
-            }
 
-            if (! CheckWitness())
-            {
-                Pathfinding();
+                case EAIState.OppressionGoToEntity:
+                    if (_targetEntity == null)
+                    {
+                        _targetEntity = EntityManager.GetOppressionTarget(Entity);
+                    }
+                    if (_targetEntity == null)
+                    {
+                        _currentState = EAIState.RoamingPatrol;
+                    }
+
+                    Pathfinding();
+                    break;
             }
         }
         #endregion Lifecycle
@@ -121,13 +135,28 @@ namespace SITC.AI
 
         private void MoveTowardsTarget()
         {
-            if (_target == null)
+            Transform target = GetTarget();
+            if (target == null)
             {
                 return;
             }
 
-            Vector3 direction = (_target.position - transform.position).normalized * _currentSpeed;
+            Vector3 direction = (target.position - transform.position).normalized * _currentSpeed;
             Entity.Move(direction);
+        }
+
+        private Transform GetTarget()
+        {
+            switch (_currentState)
+            {
+                case EAIState.OppressionGoToEntity:
+                    return _targetEntity.transform;
+
+                case EAIState.RoamingPatrol:
+                    return _target;
+            }
+
+            return null;
         }
         #endregion Pathfinding
 
@@ -137,5 +166,12 @@ namespace SITC.AI
             return _witnessTime + _witnessDuration > Time.time;
         }
         #endregion Alert
+
+        #region Oppression
+        private void AcquireTarget()
+        {
+
+        }
+        #endregion Oppression
     }
 }
