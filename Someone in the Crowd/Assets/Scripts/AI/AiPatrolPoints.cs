@@ -8,7 +8,7 @@ namespace SITC.AI
     {
         #region Members
         [Header("Patrol"), SerializeField]
-        private float _nextDecisionRange = 3f;
+        private AnimationCurve _nextDecisionRange = null;
         [SerializeField]
         private List<Transform> _positions = null;
         #endregion Members
@@ -37,7 +37,7 @@ namespace SITC.AI
             }
         }
 
-        public static Transform GetNextTarget(Vector3 position)
+        public static Transform GetNextTarget(Vector3 position, float conviction)
         {
             if (Instance == null)
             {
@@ -45,7 +45,8 @@ namespace SITC.AI
             }
 
             List<Transform> positionsInRange = new List<Transform>(Instance._positions);
-            positionsInRange.RemoveAll(p => p == null || Vector3.Distance(p.position, position) > Instance._nextDecisionRange);
+            float radius = Instance._nextDecisionRange.Evaluate(conviction);
+            positionsInRange.RemoveAll(p => p == null || Vector3.Distance(p.position, position) > radius);
 
             if (positionsInRange.Count == 0)
             {

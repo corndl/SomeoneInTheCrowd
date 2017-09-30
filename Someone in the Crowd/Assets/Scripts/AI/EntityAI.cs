@@ -48,7 +48,7 @@ namespace SITC.AI
         {
             if (ReachedCurrentTarget())
             {
-                _target = AiPatrolPoints.GetNextTarget(transform.position);
+                _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
             }
 
             MoveTowardsTarget();

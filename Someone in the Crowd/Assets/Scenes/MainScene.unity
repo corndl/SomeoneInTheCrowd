@@ -181,7 +181,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca020e9899bbff4fab5ef788f518f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextDecisionRange: 11
+  _nextDecisionRange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   _positions:
   - {fileID: 226869704}
   - {fileID: 980617064}
