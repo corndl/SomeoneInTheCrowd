@@ -19,12 +19,15 @@ namespace SITC.Controls
         #region Members
         [SerializeField]
         private Vector2 _confinementZone = new Vector2(14f, 7f);
+        [SerializeField]
+        private float _speedRatioWhileInCone = .5f;
         #endregion Members
 
         #region Private members
         private Entity _entity = null;
         private Camera _camera = null;
         private AlertCone _cone = null;
+        private bool _canceledCone = false;
         #endregion Private members
 
         #region Getters
@@ -43,7 +46,14 @@ namespace SITC.Controls
 
             if (translation != Vector3.zero)
             {
-                Entity.Move(translation.normalized);
+                translation = translation.normalized;
+
+                if (Cone.IsActive())
+                {
+                    translation *= _speedRatioWhileInCone;
+                }
+
+                Entity.Move(translation);
             }
         }
 
@@ -67,11 +77,6 @@ namespace SITC.Controls
         {
             Vector3 translation = Vector3.zero;
 
-            if (Cone.IsActive())
-            {
-                return translation;
-            }
-
             if (GetDirection(EDirection.Right))
             {
                 translation += Vector3.right;
@@ -90,7 +95,6 @@ namespace SITC.Controls
             }
 
             translation = Confine(translation);
-
             return translation;
         }
 
@@ -141,7 +145,12 @@ namespace SITC.Controls
         #region Cone
         private void GetCone()
         {
-            if (CanGrowCone())
+            if (MustCancelCone())
+            {
+                _canceledCone = true;
+                Cone.StopCone(true);
+            }
+            else if (CanGrowCone())
             {
                 Cone.GrowCone();
 
@@ -150,19 +159,32 @@ namespace SITC.Controls
             }
             else if (MustStopCone())
             {
-                Cone.StopCone();
+                Cone.StopCone(false);
             }
         }
 
         private bool CanGrowCone()
         {
+            if (_canceledCone)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    _canceledCone = false;
+                }
+                return ! _canceledCone;
+            }
             return Input.GetMouseButton(0);
         }
 
         private bool MustStopCone()
         {
             return Input.GetMouseButtonUp(0);
-        }        
+        }
+
+        private bool MustCancelCone()
+        {
+            return Input.GetMouseButtonDown(1);
+        }
         #endregion Cone
     }
 }
