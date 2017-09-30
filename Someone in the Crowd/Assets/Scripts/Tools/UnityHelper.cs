@@ -25,11 +25,19 @@ namespace SITC.Tools
         #endregion Vector
 
         #region Sprite
-        public static void SetSprite (this SpriteRenderer renderer, Sprite sprite)
+        public static void SetSprite(this SpriteRenderer renderer, Sprite sprite)
         {
             if (renderer != null)
             {
                 renderer.sprite = sprite;
+            }
+        }
+        
+        public static void FlipX(this SpriteRenderer renderer, bool toggle)
+        {
+            if (renderer != null)
+            {
+                renderer.flipX = toggle;
             }
         }
         #endregion Sprit
