@@ -9,12 +9,15 @@ namespace SITC.AI
     {
         #region Members
         [SerializeField]
+        private float _alertDuration = 2f;
+        [SerializeField]
         private List<Transform> _positions = null;
         #endregion Members
 
         #region Private members
         private Entity _entity = null;
         private int _currentTarget = 0;
+        private float _alertTime = 0f;
         #endregion Private members
 
         #region Getters
@@ -25,9 +28,22 @@ namespace SITC.AI
         protected override void DoUpdate()
         {
             base.DoUpdate();
-            Pathfinding();
+
+            if (! CheckAlert())
+            {
+                Pathfinding();
+            }
         }
         #endregion Lifecycle
+
+        #region API
+        public void Alert()
+        {
+            Debug.Log(name + " was alerted");
+            Entity.Alert();
+            _alertTime = Time.time;
+        }
+        #endregion API
 
         #region Pathfinding
         private void Pathfinding()
@@ -65,6 +81,13 @@ namespace SITC.AI
             Entity.Move(_positions[_currentTarget].position - transform.position);
         }
         #endregion Pathfinding
+
+        #region Alert
+        private bool CheckAlert()
+        {
+            return _alertTime + _alertDuration > Time.time;
+        }
+        #endregion Alert
 
         #region Debug
         private void OnDrawGizmosSelected()

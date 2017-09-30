@@ -1,4 +1,5 @@
-﻿using SITC.Tools;
+﻿using SITC.AI;
+using SITC.Tools;
 using UnityEngine;
 
 namespace SITC.Controls
@@ -122,14 +123,14 @@ namespace SITC.Controls
         #region Alert
         private void AlertBypassers()
         {
-            Entity[] entities = FindObjectsOfType<Entity>();
+            EntityAI[] entities = FindObjectsOfType<EntityAI>();
 
-            foreach (var e in entities)
+            foreach (var ai in entities)
             {
-                bool inCone = InCone(e.transform.position, _left, _right) && e != Entity;
+                bool inCone = InCone(ai.transform.position, _left, _right);
                 if (inCone)
                 {
-                    Debug.Log(e.gameObject.name + " in cone");
+                    ai.Alert();
                 }
             }
         }

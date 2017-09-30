@@ -14,6 +14,11 @@ namespace SITC
 
             transform.position += translation;
         }
+
+        public void Alert()
+        {
+
+        }
         #endregion API
     }
 }
