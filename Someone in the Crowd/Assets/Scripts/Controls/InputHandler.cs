@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SITC.Controls
 {
-    [RequireComponent(typeof(Entity))]
+    [RequireComponent(typeof(Entity), typeof(AlertCone))]
     public class InputHandler : SitcBehaviour
     {
         #region Data structures
@@ -19,37 +19,18 @@ namespace SITC.Controls
         #region Members
         [SerializeField]
         private Vector2 _confinementZone = new Vector2(14f, 7f);
-        [Header("Cone"), SerializeField]
-        private float _coneMinimumSize = 1f;
-        [SerializeField]
-        private float _coneMaximumSize = 5f;
-        [SerializeField]
-        private float _coneGrowthFactor = 1f;
-        [SerializeField]
-        private float _coneMinimumAngle = 45f;
-        [SerializeField]
-        private float _coneMaximumAngle = 45f;
-        [SerializeField]
-        private float _coneAngleGrowthFactor = 10f;
-
-        [Header("Cone rendering"), SerializeField]
-        private LineRenderer _left = null;
-        [SerializeField]
-        private LineRenderer _right = null;
-        [SerializeField]
-        private LineRenderer _joint = null;
         #endregion Members
 
         #region Private members
         private Entity _entity = null;
         private Camera _camera = null;
-        private float _cone = 0f;
-        private float _coneAngle = 0f;
+        private AlertCone _cone = null;
         #endregion Private members
 
         #region Getters
         private Entity Entity { get { _entity = _entity ?? GetComponent<Entity>(); return _entity; } }
         private Camera Camera { get { _camera = _camera ?? FindObjectOfType<Camera>(); return _camera; } }
+        private AlertCone Cone { get { return _cone = _cone ?? GetComponent<AlertCone>(); } }
         #endregion Getters
 
         #region Lifecycle
@@ -86,7 +67,7 @@ namespace SITC.Controls
         {
             Vector3 translation = Vector3.zero;
 
-            if (_cone > 0f)
+            if (Cone.IsActive())
             {
                 return translation;
             }
@@ -162,32 +143,14 @@ namespace SITC.Controls
         {
             if (CanGrowCone())
             {
-                GrowCone();
+                Cone.GrowCone();
 
                 Vector3 mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition).SetZ(0f);
-                Vector3 direction = mousePosition - transform.position;
-                direction = direction.normalized;
-
-                Vector3 left = direction.RotateInPlane(-_coneAngle / 2) * _cone + transform.position;
-                Vector3 right = direction.RotateInPlane(_coneAngle / 2) * _cone + transform.position;
-
-                DrawCone(left, right);
-
-                Entity[] entities = FindObjectsOfType<Entity>();
-
-                foreach (var e in entities)
-                {
-                    bool inCone = InCone(e.transform.position, left, right);
-                    if (inCone)
-                    {
-                        Debug.Log(e.gameObject.name + " in cone");
-                    }
-                }
+                Cone.DrawCone(mousePosition);
             }
             else if (MustStopCone())
             {
-                _cone = 0f;
-                HideCone();
+                Cone.StopCone();
             }
         }
 
@@ -196,90 +159,10 @@ namespace SITC.Controls
             return Input.GetMouseButton(0);
         }
 
-        private void GrowCone()
-        {
-            if (_cone == 0f)
-            {
-                _cone = _coneMinimumSize;
-            }
-            else if (_cone < _coneMaximumSize)
-            {
-                _cone += _coneGrowthFactor * Time.deltaTime;
-            }
-
-            if (_coneAngle == 0f)
-            {
-                _coneAngle = _coneMinimumAngle;
-            }
-            else if (_coneAngle < _coneMaximumAngle)
-            {
-                _coneAngle += _coneAngleGrowthFactor * Time.deltaTime;
-            }
-        }
-
         private bool MustStopCone()
         {
             return Input.GetMouseButtonUp(0);
-        }
-
-        private void DrawCone(Vector3 left, Vector3 right)
-        {
-            if (_left != null)
-            {
-                _left.positionCount = 2;
-                _left.SetPositions(new Vector3[] { transform.position, left });
-            }
-
-            if (_right != null)
-            {
-                _right.positionCount = 2;
-                _right.SetPositions(new Vector3[] { transform.position, right });
-            }
-
-            if (_joint != null)
-            {
-                _joint.positionCount = 2;
-                _joint.SetPositions(new Vector3[] { left, right });
-            }
-        }
-
-        private void HideCone()
-        {
-            if (_right != null)
-            {
-                _right.positionCount = 0;
-            }
-            if (_left != null)
-            {
-                _left.positionCount = 0;
-            }
-            if (_joint != null)
-            {
-                _joint.positionCount = 0;
-            }
-        }
-
-        private bool InCone(Vector3 point, Vector3 left, Vector3 right)
-        {
-            Vector3 v0 = right - transform.position;
-            Vector3 v1 = left - transform.position;
-            Vector3 v2 = point - transform.position;
-
-            // Compute dot products
-            float dot00 = Vector3.Dot(v0, v0);
-            float dot01 = Vector3.Dot(v0, v1);
-            float dot02 = Vector3.Dot(v0, v2);
-            float dot11 = Vector3.Dot(v1, v1);
-            float dot12 = Vector3.Dot(v1, v2);
-
-            // Compute barycentric coordinates
-            float invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
-            float u = (dot11 * dot02 - dot01 * dot12) * invDenom;
-            float v = (dot00 * dot12 - dot01 * dot02) * invDenom;
-
-            // Check if point is in triangle
-            return (u >= 0) && (v >= 0) && (u + v < 1);
-        }
+        }        
         #endregion Cone
     }
 }
