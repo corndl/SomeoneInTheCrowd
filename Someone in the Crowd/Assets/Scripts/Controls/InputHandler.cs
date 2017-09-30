@@ -16,6 +16,11 @@ namespace SITC.Controls
         }
         #endregion Data structures
 
+        #region Members
+        [SerializeField]
+        private Vector2 _confinementZone = new Vector2(14f, 7f);
+        #endregion Members
+
         #region Private members
         private Entity _entity = null;
         #endregion Private members
@@ -35,6 +40,20 @@ namespace SITC.Controls
             {
                 Entity.Move(translation);
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Vector3 topLeft = new Vector3(-_confinementZone.x / 2, _confinementZone.y / 2);
+            Vector3 bottomLeft = new Vector3(-_confinementZone.x / 2, -_confinementZone.y / 2);
+            Vector3 topRight = new Vector3(_confinementZone.x / 2, _confinementZone.y / 2);
+            Vector3 bottomRight = new Vector3(_confinementZone.x / 2, -_confinementZone.y / 2);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(topLeft, topRight);
+            Gizmos.DrawLine(topRight, bottomRight);
+            Gizmos.DrawLine(bottomRight, bottomLeft);
+            Gizmos.DrawLine(bottomLeft, topLeft);
         }
         #endregion Lifecycle
 
@@ -60,6 +79,8 @@ namespace SITC.Controls
                 translation += Vector3.up;
             }
 
+            translation = Confine(translation);
+
             return translation;
         }
 
@@ -68,19 +89,42 @@ namespace SITC.Controls
             switch (direction)
             {
                 case EDirection.Right:
-                    return Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
+                    return (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && transform.position.x < _confinementZone.x / 2;
 
                 case EDirection.Down:
-                    return Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
+                    return (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && transform.position.y > - _confinementZone.y / 2;
 
                 case EDirection.Left:
-                    return Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q);
+                    return (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q)) && transform.position.x > - _confinementZone.x / 2;
 
                 case EDirection.Up:
-                    return Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Z);
+                    return (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Z)) && transform.position.y < _confinementZone.y / 2;
             }
             
             return false;
+        }
+
+        private Vector3 Confine(Vector3 translation)
+        {
+            if (translation.x > _confinementZone.x / 2)
+            {
+                translation.x = _confinementZone.x / 2;
+            }
+            else if (translation.x < -_confinementZone.x / 2)
+            {
+                translation.x = -_confinementZone.x / 2;
+            }
+
+            if (translation.y > _confinementZone.y / 2)
+            {
+                translation.y = _confinementZone.y / 2;
+            }
+            else if (translation.y < -_confinementZone.y / 2)
+            {
+                translation.y = -_confinementZone.y / 2;
+            }
+
+            return translation;
         }
         #endregion Movement
     }
