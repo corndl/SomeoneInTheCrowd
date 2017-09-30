@@ -9,6 +9,14 @@ namespace SITC
         private float _conviction = 0f;
         #endregion Private members
 
+        #region Lifecycle
+        protected override void DoUpdate()
+        {
+            base.DoUpdate();
+
+        }
+        #endregion Lifecycle
+
         #region API
         public void Move(Vector3 translation)
         {
@@ -22,6 +30,11 @@ namespace SITC
         public void SetConviction(float conviction)
         {
             _conviction = conviction;
+        }
+
+        public float GetConviction()
+        {
+            return _conviction;
         }
 
         public void Alert()

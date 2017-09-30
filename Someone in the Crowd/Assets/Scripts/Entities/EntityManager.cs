@@ -19,7 +19,19 @@ namespace SITC.Entities
         protected override void Init()
         {
             base.Init();
+            RandomizeInitialConviction();            
+        }
 
+        protected override void DoUpdate()
+        {
+            base.DoUpdate();
+            NormalizeConviction();
+        }
+        #endregion Lifecycle
+        
+        #region Conviction
+        private void RandomizeInitialConviction()
+        {
             float rand = 0f;
 
             foreach (var entity in Entities)
@@ -30,6 +42,31 @@ namespace SITC.Entities
                 entity.SetConviction(conviction);
             }
         }
-        #endregion Lifecycle
+        
+        private void NormalizeConviction()
+        {
+            foreach (var entity in Entities)
+            {
+                float conviction = entity.GetConviction();
+                if (Mathf.Abs(conviction) == 1f
+                    || conviction == 0f)
+                {
+                    continue;
+                }
+
+                float variation = EntityConfiguration.ConvictionNormalizationFactor * Time.deltaTime;
+                variation = (conviction > 0)
+                    ? - variation
+                    : variation;
+
+                if (Mathf.Abs(variation) > Mathf.Abs(conviction))
+                {
+                    variation = -conviction;
+                }
+
+                entity.SetConviction(conviction + variation);
+            }
+        }
+        #endregion Conviction
     }
 }
