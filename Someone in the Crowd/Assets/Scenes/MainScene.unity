@@ -260,8 +260,9 @@ GameObject:
   m_Component:
   - component: {fileID: 339768460}
   - component: {fileID: 339768461}
+  - component: {fileID: 339768462}
   m_Layer: 0
-  m_Name: EntityConfiguration
+  m_Name: EntityManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -292,6 +293,113 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entitySpeed: 5
+  _convictionInitialiRepartition:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.007232666
+      value: 0.014099121
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.7772287
+      value: -0.081671484
+      inSlope: 0.8791685
+      outSlope: 0.8791685
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.8973999
+      value: 1.0204163
+      inSlope: 0.9858608
+      outSlope: 0.9858608
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: -1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _convictionNormalizatioFactor:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: -1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0
+      value: 0.01
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _influenceRadius:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: -1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _influenceFactor:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: -1
+      value: -0.01
+      inSlope: 1
+      outSlope: 0.01
+      tangentMode: 65
+    - serializedVersion: 2
+      time: 1
+      value: 0.01
+      inSlope: 0.01
+      outSlope: 0.2713648
+      tangentMode: 5
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &339768462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339768459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a1778818c10594ca74c86f52143094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &465328319
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e79a394f8fe26498357b50f3557efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _alertDuration: 2
   _positions:
   - {fileID: 226869704}
   - {fileID: 980617064}
