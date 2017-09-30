@@ -555,6 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damping: 0.3
+  _confinementZone: {x: 16, y: 9}
 --- !u!1 &1347453344
 GameObject:
   m_ObjectHideFlags: 0
