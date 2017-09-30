@@ -9,12 +9,16 @@ namespace SITC.AI
     {
         #region Members
         [SerializeField]
-        private List<Transform> _positions = null;
+        private float _alertDuration = 2f;
         #endregion Members
 
         #region Private members
         private Entity _entity = null;
-        private int _currentTarget = 0;
+        private Transform _target = null;
+        private float _targetReachedTime = 0f;
+        private float _delayBeforeNextTarget = 0f;
+        private float _alertTime = 0f;
+        private float _currentSpeed = 1f;
         #endregion Private members
 
         #region Getters
@@ -25,21 +29,37 @@ namespace SITC.AI
         protected override void DoUpdate()
         {
             base.DoUpdate();
-            Pathfinding();
+
+            if (! CheckAlert())
+            {
+                Pathfinding();
+            }
         }
         #endregion Lifecycle
+
+        #region API
+        public void Alert()
+        {
+            Debug.Log(name + " was alerted");
+            Entity.Alert();
+            _alertTime = Time.time;
+        }
+        #endregion API
 
         #region Pathfinding
         private void Pathfinding()
         {
-            if (_positions.Count == 0)
+            if (_targetReachedTime + _delayBeforeNextTarget > Time.time)
             {
                 return;
             }
 
             if (ReachedCurrentTarget())
             {
-                IncrementCurrentTarget();
+                _targetReachedTime = Time.time;
+                _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
+                _delayBeforeNextTarget = Random.Range(0f, AiConfiguration.MaxDelayBeforeNextTarget);
+                _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
             }
 
             MoveTowardsTarget();
@@ -47,61 +67,31 @@ namespace SITC.AI
 
         private bool ReachedCurrentTarget()
         {
-            return Vector3.Distance(transform.position, _positions[_currentTarget].position) <= AiConfiguration.TargetReachedDistance;
-        }
-
-        private void IncrementCurrentTarget()
-        {
-            ++_currentTarget;
-
-            if (_currentTarget >= _positions.Count)
+            if (_target == null)
             {
-                _currentTarget = 0;
+                return true;
             }
+
+            return Vector3.Distance(transform.position, _target.position) <= AiConfiguration.TargetReachedDistance;
         }
 
         private void MoveTowardsTarget()
         {
-            Entity.Move(_positions[_currentTarget].position - transform.position);
+            if (_target == null)
+            {
+                return;
+            }
+
+            Vector3 direction = (_target.position - transform.position).normalized * _currentSpeed;
+            Entity.Move(direction);
         }
         #endregion Pathfinding
 
-        #region Debug
-        private void OnDrawGizmosSelected()
+        #region Alert
+        private bool CheckAlert()
         {
-            Gizmos.color = AiConfiguration.AiTargetGizmoColor;
-            _positions.ForEach(DrawTarget);
-            Gizmos.color = AiConfiguration.AiTargetLinkGizmoColor;
-            DrawLinks();
+            return _alertTime + _alertDuration > Time.time;
         }
-
-        private void DrawTarget(Transform target)
-        {
-            if (target == null)
-            {
-                return;
-            }
-
-            string targetText = _positions.IndexOf(target).ToString();
-            Gizmos.DrawSphere(target.position, AiConfiguration.AiTargetGizmoRadius);
-            UnityEditor.Handles.Label(target.position, targetText, AiConfiguration.BoldStyle);
-        }
-
-        private void DrawLinks()
-        {
-            if (_positions.Count < 2)
-            {
-                return;
-            }
-
-            for (int i = 0, count = _positions.Count; i < count; i++)
-            {
-                int next = (i + 1 == count)
-                    ? 0
-                    : i + 1;
-                Gizmos.DrawLine(_positions[i].position, _positions[next].position);
-            }
-        }
-        #endregion Debug
+        #endregion Alert
     }
 }

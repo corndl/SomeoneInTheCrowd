@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SITC.Controls
 {
-    [RequireComponent(typeof(Entity))]
+    [RequireComponent(typeof(Entity), typeof(AlertCone))]
     public class InputHandler : SitcBehaviour
     {
         #region Data structures
@@ -23,10 +23,14 @@ namespace SITC.Controls
 
         #region Private members
         private Entity _entity = null;
+        private Camera _camera = null;
+        private AlertCone _cone = null;
         #endregion Private members
 
         #region Getters
         private Entity Entity { get { _entity = _entity ?? GetComponent<Entity>(); return _entity; } }
+        private Camera Camera { get { _camera = _camera ?? FindObjectOfType<Camera>(); return _camera; } }
+        private AlertCone Cone { get { return _cone = _cone ?? GetComponent<AlertCone>(); } }
         #endregion Getters
 
         #region Lifecycle
@@ -34,11 +38,12 @@ namespace SITC.Controls
         {
             base.DoUpdate();
 
+            GetCone();
             Vector3 translation = GetDirection();
 
             if (translation != Vector3.zero)
             {
-                Entity.Move(translation);
+                Entity.Move(translation.normalized);
             }
         }
 
@@ -61,6 +66,11 @@ namespace SITC.Controls
         private Vector3 GetDirection()
         {
             Vector3 translation = Vector3.zero;
+
+            if (Cone.IsActive())
+            {
+                return translation;
+            }
 
             if (GetDirection(EDirection.Right))
             {
@@ -127,5 +137,32 @@ namespace SITC.Controls
             return translation;
         }
         #endregion Movement
+
+        #region Cone
+        private void GetCone()
+        {
+            if (CanGrowCone())
+            {
+                Cone.GrowCone();
+
+                Vector3 mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition).SetZ(0f);
+                Cone.DrawCone(mousePosition);
+            }
+            else if (MustStopCone())
+            {
+                Cone.StopCone();
+            }
+        }
+
+        private bool CanGrowCone()
+        {
+            return Input.GetMouseButton(0);
+        }
+
+        private bool MustStopCone()
+        {
+            return Input.GetMouseButtonUp(0);
+        }        
+        #endregion Cone
     }
 }
