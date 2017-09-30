@@ -19,14 +19,22 @@ namespace SITC.Controls
         #region Members
         [SerializeField]
         private Vector2 _confinementZone = new Vector2(14f, 7f);
+        [SerializeField]
+        private float _coneMinimumSize = 1f;
+        [SerializeField]
+        private float _coneAngle = 45f;
+        [SerializeField]
+        private float _coneGrowthFactor = 1f;
         #endregion Members
 
         #region Private members
         private Entity _entity = null;
+        private Camera _camera = null;
         #endregion Private members
 
         #region Getters
         private Entity Entity { get { _entity = _entity ?? GetComponent<Entity>(); return _entity; } }
+        private Camera Camera { get { _camera = _camera ?? FindObjectOfType<Camera>(); return _camera; } }
         #endregion Getters
 
         #region Lifecycle
@@ -34,6 +42,7 @@ namespace SITC.Controls
         {
             base.DoUpdate();
 
+            GetCone();
             Vector3 translation = GetDirection();
 
             if (translation != Vector3.zero)
@@ -61,6 +70,11 @@ namespace SITC.Controls
         private Vector3 GetDirection()
         {
             Vector3 translation = Vector3.zero;
+
+            if (_cone > 0f)
+            {
+                return translation;
+            }
 
             if (GetDirection(EDirection.Right))
             {
@@ -127,5 +141,50 @@ namespace SITC.Controls
             return translation;
         }
         #endregion Movement
+
+        #region Click
+        private float _cone = 0f;
+
+        private void GetCone()
+        {
+            if (CanGrowCone())
+            {
+                if (_cone == 0f)
+                {
+                    _cone = _coneMinimumSize;
+                }
+                else
+                {
+                    _cone += _coneGrowthFactor * Time.deltaTime;
+                }
+                
+                Vector3 mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition).SetZ(0f);
+                Vector3 direction = mousePosition - transform.position;
+                direction = direction.normalized;
+
+                Vector3 left = direction.RotateInPlane(-_coneAngle / 2) * _cone + transform.position;
+                Vector3 right = direction.RotateInPlane(_coneAngle / 2) * _cone + transform.position;
+                
+                Debug.DrawLine(transform.position, left);
+                Debug.DrawLine(transform.position, right);
+                Debug.DrawLine(left, right);
+                Debug.DrawLine(transform.position, mousePosition, Color.red);
+            }
+            else if (MustStopCone())
+            {
+                _cone = 0f;
+            }
+        }
+
+        private bool CanGrowCone()
+        {
+            return Input.GetMouseButton(0);
+        }
+
+        private bool MustStopCone()
+        {
+            return Input.GetMouseButtonUp(0);
+        }
+        #endregion Click
     }
 }
