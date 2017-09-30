@@ -10,6 +10,7 @@ namespace SITC
         {
             translation = translation.normalized;
             translation *= EntityConfiguration.EntitySpeed;
+            translation *= Time.deltaTime;
 
             transform.position += translation;
         }
