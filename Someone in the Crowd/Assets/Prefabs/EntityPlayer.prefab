@@ -227,10 +227,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coneMinimumSize: 1.5
   _coneMaximumSize: 3.5
-  _coneGrowthFactor: 1.25
+  _coneGrowthFactor: 1.875
   _coneMinimumAngle: 20
-  _coneMaximumAngle: 90
-  _coneAngleGrowthFactor: 45
+  _coneMaximumAngle: 80
+  _coneAngleGrowthFactor: 60
   _leftRenderer: {fileID: 120409763426502170}
   _rightRenderer: {fileID: 120287888507021946}
   _jointRenderer: {fileID: 120208750362072818}
