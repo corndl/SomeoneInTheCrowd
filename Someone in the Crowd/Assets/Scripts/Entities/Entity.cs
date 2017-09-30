@@ -6,7 +6,7 @@ namespace SITC
     public class Entity : SitcBehaviour
     {
         #region Members
-        [SerializeField]
+        [Header("Visual"), SerializeField]
         private SpriteRenderer _face = null;
         [SerializeField]
         private SpriteRenderer _hair = null;
@@ -14,6 +14,15 @@ namespace SITC
         private SpriteRenderer _head = null;
         [SerializeField]
         private SpriteRenderer _body = null;
+
+        [Header("Visual copy"), SerializeField]
+        private SpriteRenderer _faceC = null;
+        [SerializeField]
+        private SpriteRenderer _hairC = null;
+        [SerializeField]
+        private SpriteRenderer _headC = null;
+        [SerializeField]
+        private SpriteRenderer _bodyC = null;
         #endregion Members
 
         #region Private members
@@ -25,15 +34,17 @@ namespace SITC
         {
             base.Init();
 
-            _hair.SetSprite(EntityConfiguration.HairSprites.GetRandom());
-            _head.SetSprite(EntityConfiguration.HeadSprites.GetRandom());
-            _body.SetSprite(EntityConfiguration.BodySprites.GetRandom());
-        }
+            var s = EntityConfiguration.HairSprites.GetRandom();
+            _hair.SetSprite(s);
+            _hairC.SetSprite(s);
 
-        protected override void DoUpdate()
-        {
-            base.DoUpdate();
+            s = EntityConfiguration.HeadSprites.GetRandom();
+            _head.SetSprite(s);
+            _headC.SetSprite(s);
 
+            s = EntityConfiguration.BodySprites.GetRandom();
+            _body.SetSprite(s);
+            _bodyC.SetSprite(s);
         }
         #endregion Lifecycle
 
@@ -56,6 +67,11 @@ namespace SITC
                 _hair.FlipX(flipX);
                 _face.FlipX(flipX);
                 _head.FlipX(flipX);
+
+                _bodyC.FlipX(flipX);
+                _hairC.FlipX(flipX);
+                _faceC.FlipX(flipX);
+                _headC.FlipX(flipX);
             }
         }
 
@@ -78,6 +94,7 @@ namespace SITC
             }
 
             _face.SetSprite(sprite);
+            _faceC.SetSprite(sprite);
         }
 
         public void AddConviction(float delta)
