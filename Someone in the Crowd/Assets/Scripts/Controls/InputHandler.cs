@@ -19,6 +19,8 @@ namespace SITC.Controls
         #region Members
         [SerializeField]
         private Vector2 _confinementZone = new Vector2(14f, 7f);
+        [SerializeField]
+        private float _speedRatioWhileInCone = .5f;
         #endregion Members
 
         #region Private members
@@ -43,7 +45,14 @@ namespace SITC.Controls
 
             if (translation != Vector3.zero)
             {
-                Entity.Move(translation.normalized);
+                translation = translation.normalized;
+
+                if (Cone.IsActive())
+                {
+                    translation *= _speedRatioWhileInCone;
+                }
+
+                Entity.Move(translation);
             }
         }
 
@@ -67,11 +76,6 @@ namespace SITC.Controls
         {
             Vector3 translation = Vector3.zero;
 
-            if (Cone.IsActive())
-            {
-                return translation;
-            }
-
             if (GetDirection(EDirection.Right))
             {
                 translation += Vector3.right;
@@ -90,7 +94,6 @@ namespace SITC.Controls
             }
 
             translation = Confine(translation);
-
             return translation;
         }
 
