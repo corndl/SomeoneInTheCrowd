@@ -59,6 +59,8 @@ namespace SITC.AI
             switch (_currentState)
             {
                 case EAIState.RoamingPatrol:
+                case EAIState.OppressedTakenAway:
+                case EAIState.OppressionTakeAwayEntity:
                     Pathfinding();
                     break;
 
@@ -102,6 +104,12 @@ namespace SITC.AI
         {
             _witnessTime = Time.time;
         }
+
+        public void SetExitTarget(Transform exit)
+        {
+            _currentState = EAIState.OppressedTakenAway;
+            _target = exit;
+        }
         #endregion API
 
         #region Pathfinding
@@ -114,6 +122,12 @@ namespace SITC.AI
 
             if (ReachedCurrentTarget())
             {
+                if (_currentState == EAIState.OppressedTakenAway)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+
                 _targetReachedTime = Time.time;
                 _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
                 _delayBeforeNextTarget = Random.Range(0f, AiConfiguration.MaxDelayBeforeNextTarget);
@@ -126,7 +140,17 @@ namespace SITC.AI
                 {
                     _currentState = EAIState.OppressionTakeAwayEntity;
                     EntityManager.TakeAway(Entity, _targetEntity);
-                    _target = null;
+                    _target = AiExitPoints.GetClosestExit(transform.position);
+                    
+                    if (_targetEntity.GetComponent<EntityAI>())
+                    {
+                        _targetEntity.GetComponent<EntityAI>().SetExitTarget(_target);
+                    }
+                }
+                else if (_currentState == EAIState.OppressionTakeAwayEntity)
+                {
+                    _currentState = EAIState.RoamingPatrol;
+                    _target = AiPatrolPoints.GetNextTargetAfterTakeAway(transform.position);
                 }
             }
 
@@ -166,6 +190,7 @@ namespace SITC.AI
 
                 case EAIState.RoamingPatrol:
                 case EAIState.OppressionTakeAwayEntity:
+                case EAIState.OppressedTakenAway:
                     return _target;
             }
 
