@@ -163,7 +163,7 @@ namespace SITC.Controls
             if (CanGrowCone())
             {
                 GrowCone();
-                
+
                 Vector3 mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition).SetZ(0f);
                 Vector3 direction = mousePosition - transform.position;
                 direction = direction.normalized;
@@ -172,6 +172,17 @@ namespace SITC.Controls
                 Vector3 right = direction.RotateInPlane(_coneAngle / 2) * _cone + transform.position;
 
                 DrawCone(left, right);
+
+                Entity[] entities = FindObjectsOfType<Entity>();
+
+                foreach (var e in entities)
+                {
+                    bool inCone = InCone(e.transform.position, left, right);
+                    if (inCone)
+                    {
+                        Debug.Log(e.gameObject.name + " in cone");
+                    }
+                }
             }
             else if (MustStopCone())
             {
@@ -246,6 +257,28 @@ namespace SITC.Controls
             {
                 _joint.positionCount = 0;
             }
+        }
+
+        private bool InCone(Vector3 point, Vector3 left, Vector3 right)
+        {
+            Vector3 v0 = right - transform.position;
+            Vector3 v1 = left - transform.position;
+            Vector3 v2 = point - transform.position;
+
+            // Compute dot products
+            float dot00 = Vector3.Dot(v0, v0);
+            float dot01 = Vector3.Dot(v0, v1);
+            float dot02 = Vector3.Dot(v0, v2);
+            float dot11 = Vector3.Dot(v1, v1);
+            float dot12 = Vector3.Dot(v1, v2);
+
+            // Compute barycentric coordinates
+            float invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
+            float u = (dot11 * dot02 - dot01 * dot12) * invDenom;
+            float v = (dot00 * dot12 - dot01 * dot02) * invDenom;
+
+            // Check if point is in triangle
+            return (u >= 0) && (v >= 0) && (u + v < 1);
         }
         #endregion Cone
     }
