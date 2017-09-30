@@ -58,7 +58,7 @@ namespace SITC
 
         public void SetConviction(float conviction)
         {
-            _conviction = conviction;
+            _conviction = Mathf.Clamp(conviction, -1f, 1f);
             Sprite sprite;
 
             if (_conviction < EntityConfiguration.MinimumConvictionForOppressor)

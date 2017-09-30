@@ -38,10 +38,10 @@ namespace SITC.AI
         #endregion Lifecycle
 
         #region API
-        public void Alert()
+        public void Alert(float conviction)
         {
             Debug.Log(name + " was alerted");
-            Entity.Alert();
+            Entity.AddConviction(conviction);
             _alertTime = Time.time;
         }
         #endregion API

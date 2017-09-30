@@ -19,6 +19,8 @@ namespace SITC
         private AnimationCurve _influenceRadius = null;
         [SerializeField]
         private AnimationCurve _influenceFactor = null;
+        [SerializeField]
+        private AnimationCurve _alertConvictionImpact = null;
 
         [Header("Appearance randomization"), SerializeField]
         private List<Sprite> _hairSprites = null;
@@ -46,7 +48,8 @@ namespace SITC
         public static AnimationCurve ConvictionNormalizationFactor { get { return (Instance != null) ? Instance._convictionNormalizatioFactor : new AnimationCurve(); } }
         public static AnimationCurve InfluenceRadius { get { return (Instance != null) ? Instance._influenceRadius : new AnimationCurve(); } }
         public static AnimationCurve InfluenceFactor { get { return (Instance != null) ? Instance._influenceFactor : new AnimationCurve(); } }
-        
+        public static AnimationCurve AlertConvictionImpact { get { return (Instance != null) ? Instance._alertConvictionImpact : new AnimationCurve(); } }
+
         public static List<Sprite> HairSprites { get { return (Instance != null) ? Instance._hairSprites : null; } }
         public static List<Sprite> HeadSprites { get { return (Instance != null) ? Instance._headSprites : null; } }
         public static List<Sprite> BodySprites { get { return (Instance != null) ? Instance._bodySprites : null; } }

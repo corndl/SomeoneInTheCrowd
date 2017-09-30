@@ -124,13 +124,21 @@ namespace SITC.Controls
         private void AlertBypassers()
         {
             EntityAI[] entities = FindObjectsOfType<EntityAI>();
+            if (entities.Length == 0)
+            {
+                return; 
+            }
+
+            float conviction = Entity.GetConviction();
+            float intensity = EntityConfiguration.AlertConvictionImpact.Evaluate(conviction);
+            intensity /= entities.Length;
 
             foreach (var ai in entities)
             {
                 bool inCone = InCone(ai.transform.position, _left, _right);
                 if (inCone)
                 {
-                    ai.Alert();
+                    ai.Alert(intensity);
                 }
             }
         }
