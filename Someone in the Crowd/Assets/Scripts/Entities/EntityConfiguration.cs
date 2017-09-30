@@ -6,7 +6,7 @@ namespace SITC
     public class EntityConfiguration : Singleton<EntityConfiguration>
     {
         #region Members
-        [SerializeField]
+        [Header("Controls"), SerializeField]
         private float _entitySpeed = 1f;
         #endregion Members
 

@@ -2,7 +2,9 @@
 {
     public class Singleton<T> : SitcBehaviour where T : SitcBehaviour
     {
-        public static T Instance = null;
+        private static T _instance = null;
+
+        public static T Instance { get { _instance = _instance ?? FindObjectOfType<T>(); return _instance; } }
 
         #region Lifecycle
         protected override void Init()
@@ -10,9 +12,9 @@
             base.Init();
             if (Instance == null)
             {
-                Instance = this as T;
+                _instance = this as T;
             }
-            else
+            else if (Instance != this)
             {
                 Destroy(gameObject);
             }
@@ -23,7 +25,7 @@
             base.DoDestroy();
             if (Instance == this)
             {
-                Instance = null;
+                _instance = null;
             }
         }
         #endregion Lifecycle
