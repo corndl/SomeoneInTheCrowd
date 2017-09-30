@@ -20,15 +20,15 @@ namespace SITC
         private void OnGUI()
         {
             base.DoUpdate();
-
-            GUIStyle oki = new GUIStyle();
-            string label = "oki";
+            
+            string label = string.Format("Conviction : {0}", Entity.GetConviction());
+            var style = new GUIStyle();
             GUIContent content = new GUIContent(label);
-            Vector2 size = oki.CalcSize(content);
+            Vector2 size = style.CalcSize(content);
             Vector3 screen = Camera.WorldToScreenPoint(transform.position);
 
             Rect rect = new Rect(screen.x, Screen.height - screen.y, size.x, size.y);
-            //GUI.Box(rect, content);
+            GUI.Box(rect, content, style);
         }
         #endregion Lifecycle
     }
