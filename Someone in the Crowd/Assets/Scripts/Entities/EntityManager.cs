@@ -37,7 +37,7 @@ namespace SITC.Entities
             foreach (var entity in Entities)
             {
                 rand = Random.Range(0f, 1f);
-                float conviction = EntityConfiguration.ConvictionCurve.Evaluate(rand);
+                float conviction = EntityConfiguration.ConvictionInitialRepartition.Evaluate(rand);
                 conviction = Mathf.Clamp(conviction, -1f, 1f);
                 entity.SetConviction(conviction);
             }
@@ -54,14 +54,14 @@ namespace SITC.Entities
                     continue;
                 }
 
-                float variation = EntityConfiguration.ConvictionNormalizationFactor * Time.deltaTime;
+                float variation = EntityConfiguration.ConvictionNormalizationFactor.Evaluate(conviction) * Time.deltaTime;
                 variation = (conviction > 0)
                     ? - variation
                     : variation;
 
                 if (Mathf.Abs(variation) > Mathf.Abs(conviction))
                 {
-                    variation = -conviction;
+                    variation = - conviction;
                 }
 
                 entity.SetConviction(conviction + variation);
