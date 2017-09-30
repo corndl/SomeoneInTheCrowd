@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace SITC.AI
 {
-    public class AiPatrolPoints : Singleton<AiPatrolPoints>
+    public class AiExitPoints : Singleton<AiExitPoints>
     {
         #region Members
-        [Header("Patrol"), SerializeField]
-        private AnimationCurve _nextDecisionRange = null;
         [SerializeField]
         private List<Transform> _positions = null;
         #endregion Members
@@ -37,27 +35,7 @@ namespace SITC.AI
             }
         }
 
-        public static Transform GetNextTarget(Vector3 position, float conviction)
-        {
-            if (Instance == null)
-            {
-                return null;
-            }
-
-            List<Transform> positionsInRange = new List<Transform>(Instance._positions);
-            float radius = Instance._nextDecisionRange.Evaluate(conviction);
-            positionsInRange.RemoveAll(p => p == null || Vector3.Distance(p.position, position) > radius);
-
-            if (positionsInRange.Count == 0)
-            {
-                return null;
-            }
-
-            int rand = Random.Range(0, positionsInRange.Count);
-            return positionsInRange[rand];
-        }
-
-        public static Transform GetNextTargetAfterTakeAway(Vector3 position)
+        public static Transform GetClosestExit(Vector3 position)
         {
             if (Instance == null)
             {
@@ -95,7 +73,7 @@ namespace SITC.AI
             {
                 return;
             }
-            
+
             Gizmos.DrawSphere(target.position, AiConfiguration.AiTargetGizmoRadius);
         }
         #endregion Debug
