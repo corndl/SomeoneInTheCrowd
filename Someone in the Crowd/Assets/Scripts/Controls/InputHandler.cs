@@ -19,12 +19,19 @@ namespace SITC.Controls
         #region Members
         [SerializeField]
         private Vector2 _confinementZone = new Vector2(14f, 7f);
-        [SerializeField]
+        [Header("Cone"), SerializeField]
         private float _coneMinimumSize = 1f;
         [SerializeField]
         private float _coneAngle = 45f;
         [SerializeField]
         private float _coneGrowthFactor = 1f;
+
+        [Header("Cone rendering"), SerializeField]
+        private LineRenderer _left = null;
+        [SerializeField]
+        private LineRenderer _right = null;
+        [SerializeField]
+        private LineRenderer _joint = null;
         #endregion Members
 
         #region Private members
@@ -142,21 +149,14 @@ namespace SITC.Controls
         }
         #endregion Movement
 
-        #region Click
+        #region Cone
         private float _cone = 0f;
 
         private void GetCone()
         {
             if (CanGrowCone())
             {
-                if (_cone == 0f)
-                {
-                    _cone = _coneMinimumSize;
-                }
-                else
-                {
-                    _cone += _coneGrowthFactor * Time.deltaTime;
-                }
+                GrowCone();
                 
                 Vector3 mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition).SetZ(0f);
                 Vector3 direction = mousePosition - transform.position;
@@ -164,15 +164,13 @@ namespace SITC.Controls
 
                 Vector3 left = direction.RotateInPlane(-_coneAngle / 2) * _cone + transform.position;
                 Vector3 right = direction.RotateInPlane(_coneAngle / 2) * _cone + transform.position;
-                
-                Debug.DrawLine(transform.position, left);
-                Debug.DrawLine(transform.position, right);
-                Debug.DrawLine(left, right);
-                Debug.DrawLine(transform.position, mousePosition, Color.red);
+
+                DrawCone(left, right);
             }
             else if (MustStopCone())
             {
                 _cone = 0f;
+                HideCone();
             }
         }
 
@@ -181,10 +179,59 @@ namespace SITC.Controls
             return Input.GetMouseButton(0);
         }
 
+        private void GrowCone()
+        {
+            if (_cone == 0f)
+            {
+                _cone = _coneMinimumSize;
+            }
+            else
+            {
+                _cone += _coneGrowthFactor * Time.deltaTime;
+            }
+        }
+
         private bool MustStopCone()
         {
             return Input.GetMouseButtonUp(0);
         }
-        #endregion Click
+
+        private void DrawCone(Vector3 left, Vector3 right)
+        {
+            if (_left != null)
+            {
+                _left.positionCount = 2;
+                _left.SetPositions(new Vector3[] { transform.position, left });
+            }
+
+            if (_right != null)
+            {
+                _right.positionCount = 2;
+                _right.SetPositions(new Vector3[] { transform.position, right });
+            }
+
+            if (_joint != null)
+            {
+                _joint.positionCount = 2;
+                _joint.SetPositions(new Vector3[] { left, right });
+            }
+        }
+
+        private void HideCone()
+        {
+            if (_right != null)
+            {
+                _right.positionCount = 0;
+            }
+            if (_left != null)
+            {
+                _left.positionCount = 0;
+            }
+            if (_joint != null)
+            {
+                _joint.positionCount = 0;
+            }
+        }
+        #endregion Cone
     }
 }
