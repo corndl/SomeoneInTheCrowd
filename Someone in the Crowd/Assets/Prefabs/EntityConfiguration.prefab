@@ -74,13 +74,25 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.1655297
-      value: 1
+      time: 0.1293934
+      value: -1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.834772
+      time: 0.13939339
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.87
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.88
       value: 1
       inSlope: 0
       outSlope: 0
@@ -216,3 +228,6 @@ MonoBehaviour:
   _neutralSprite: {fileID: 21300000, guid: 56ce9d8aa37d0ba4f9917ad69ad87488, type: 3}
   _minimumConvictionForResistant: 0.5
   _resistantSprite: {fileID: 21300000, guid: 8a7bbb612913d514fa25b6e9034d567f, type: 3}
+  _convictionColor: {r: 1, g: 0, b: 0, a: 1}
+  _neutralColor: {r: 1, g: 1, b: 1, a: 1}
+  _resistantColor: {r: 1, g: 1, b: 0, a: 1}
