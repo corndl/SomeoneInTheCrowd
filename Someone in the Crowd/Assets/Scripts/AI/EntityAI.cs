@@ -117,7 +117,17 @@ namespace SITC.AI
                 _targetReachedTime = Time.time;
                 _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
                 _delayBeforeNextTarget = Random.Range(0f, AiConfiguration.MaxDelayBeforeNextTarget);
-                _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
+
+                if (_currentState == EAIState.RoamingPatrol)
+                {
+                    _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
+                }
+                else if (_currentState == EAIState.OppressionGoToEntity)
+                {
+                    _currentState = EAIState.OppressionTakeAwayEntity;
+                    EntityManager.TakeAway(Entity, _targetEntity);
+                    _target = null;
+                }
             }
 
             MoveTowardsTarget();
@@ -125,12 +135,14 @@ namespace SITC.AI
 
         private bool ReachedCurrentTarget()
         {
-            if (_target == null)
+            Transform target = GetTarget();
+
+            if (target == null)
             {
                 return true;
             }
 
-            return Vector3.Distance(transform.position, _target.position) <= AiConfiguration.TargetReachedDistance;
+            return Vector3.Distance(transform.position, target.position) <= AiConfiguration.TargetReachedDistance;
         }
 
         private void MoveTowardsTarget()
@@ -153,6 +165,7 @@ namespace SITC.AI
                     return _targetEntity.transform;
 
                 case EAIState.RoamingPatrol:
+                case EAIState.OppressionTakeAwayEntity:
                     return _target;
             }
 

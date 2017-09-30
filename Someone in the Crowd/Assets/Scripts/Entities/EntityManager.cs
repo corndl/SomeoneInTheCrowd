@@ -50,6 +50,17 @@ namespace SITC.Entities
 
             return target;
         }
+        
+        public static void TakeAway(Entity oppressor, Entity oppressed)
+        {
+            if (Instance == null)
+            {
+                return;
+            }
+
+            Instance.Entities.Remove(oppressed);
+            Debug.Log(oppressor.name + " took away " + oppressed.name + " !");
+        }
         #endregion API
 
         #region Conviction
