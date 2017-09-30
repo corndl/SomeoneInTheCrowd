@@ -5,11 +5,29 @@ namespace SITC
 {
     public class Entity : SitcBehaviour
     {
+        #region Members
+        [SerializeField]
+        private SpriteRenderer _hair = null;
+        [SerializeField]
+        private SpriteRenderer _head = null;
+        [SerializeField]
+        private SpriteRenderer _body = null;
+        #endregion Members
+
         #region Private members
         private float _conviction = 0f;
         #endregion Private members
 
         #region Lifecycle
+        protected override void Init()
+        {
+            base.Init();
+
+            _hair.SetSprite(EntityConfiguration.HairSprites.GetRandom());
+            _head.SetSprite(EntityConfiguration.HeadSprites.GetRandom());
+            _body.SetSprite(EntityConfiguration.BodySprites.GetRandom());
+        }
+
         protected override void DoUpdate()
         {
             base.DoUpdate();

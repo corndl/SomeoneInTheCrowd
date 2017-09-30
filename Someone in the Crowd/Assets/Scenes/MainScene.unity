@@ -486,6 +486,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  _hairSprites: []
+  _headSprites: []
+  _bodySprites: []
 --- !u!114 &339768462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,6 +596,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac31428d70f77e43b183d6ec353df69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hair: {fileID: 0}
+  _head: {fileID: 0}
+  _body: {fileID: 0}
 --- !u!1 &700110678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,6 +1096,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac31428d70f77e43b183d6ec353df69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hair: {fileID: 0}
+  _head: {fileID: 0}
+  _body: {fileID: 0}
 --- !u!212 &1374095851
 SpriteRenderer:
   m_ObjectHideFlags: 0

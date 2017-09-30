@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SITC.Tools
 {
     public static class UnityHelper
     {
+        #region Vector
         public static Vector3 SetZ(this Vector3 vector, float z)
         {
             vector.z = z;
@@ -20,5 +22,30 @@ namespace SITC.Tools
 
             return vector;
         }
+        #endregion Vector
+
+        #region Sprite
+        public static void SetSprite (this SpriteRenderer renderer, Sprite sprite)
+        {
+            if (renderer != null)
+            {
+                renderer.sprite = sprite;
+            }
+        }
+        #endregion Sprit
+
+        #region List
+        public static T GetRandom<T>(this List<T> list)
+        {
+            if (list == null
+                || list.Count == 0)
+            {
+                return default(T);
+            }
+
+            int rand = Random.Range(0, list.Count);
+            return list[rand];
+        }
+        #endregion List
     }
 }
