@@ -4031,8 +4031,8 @@ Transform:
   - {fileID: 1436735355}
   - {fileID: 865795444}
   - {fileID: 996303255}
-  - {fileID: 1253166615}
   - {fileID: 174483719}
+  - {fileID: 1253166615}
   - {fileID: 737634408}
   - {fileID: 283293096}
   - {fileID: 173374652}
@@ -4041,8 +4041,8 @@ Transform:
   - {fileID: 1029347750}
   - {fileID: 558729962}
   - {fileID: 439883129}
-  - {fileID: 1612167843}
   - {fileID: 517910395}
+  - {fileID: 1612167843}
   - {fileID: 1903612244}
   - {fileID: 354103139}
   - {fileID: 2116834554}
@@ -4051,9 +4051,9 @@ Transform:
   - {fileID: 320800871}
   - {fileID: 358528546}
   - {fileID: 321045120}
-  - {fileID: 1684923496}
   - {fileID: 528700368}
   - {fileID: 1742965293}
+  - {fileID: 1684923496}
   - {fileID: 920457408}
   - {fileID: 1316408771}
   - {fileID: 1689692988}
@@ -4071,20 +4071,20 @@ Transform:
   - {fileID: 1323031168}
   - {fileID: 702750807}
   - {fileID: 1852215804}
-  - {fileID: 1145001474}
   - {fileID: 55793702}
   - {fileID: 1691680781}
+  - {fileID: 1145001474}
   - {fileID: 194303632}
   - {fileID: 443084103}
   - {fileID: 609822867}
   - {fileID: 1132129895}
   - {fileID: 260300242}
-  - {fileID: 313788365}
+  - {fileID: 1422521975}
   - {fileID: 1477813058}
   - {fileID: 1329435469}
   - {fileID: 1384027079}
   - {fileID: 218433056}
-  - {fileID: 1422521975}
+  - {fileID: 313788365}
   - {fileID: 1866357778}
   m_Father: {fileID: 1347453345}
   m_RootOrder: 2
@@ -4177,8 +4177,8 @@ MonoBehaviour:
   - {fileID: 1436735355}
   - {fileID: 865795444}
   - {fileID: 996303255}
-  - {fileID: 1253166615}
   - {fileID: 174483719}
+  - {fileID: 1253166615}
   - {fileID: 737634408}
   - {fileID: 283293096}
   - {fileID: 173374652}
@@ -4187,8 +4187,8 @@ MonoBehaviour:
   - {fileID: 1029347750}
   - {fileID: 558729962}
   - {fileID: 439883129}
-  - {fileID: 1612167843}
   - {fileID: 517910395}
+  - {fileID: 1612167843}
   - {fileID: 1903612244}
   - {fileID: 354103139}
   - {fileID: 2116834554}
@@ -4197,9 +4197,9 @@ MonoBehaviour:
   - {fileID: 320800871}
   - {fileID: 358528546}
   - {fileID: 321045120}
-  - {fileID: 1684923496}
   - {fileID: 528700368}
   - {fileID: 1742965293}
+  - {fileID: 1684923496}
   - {fileID: 920457408}
   - {fileID: 1316408771}
   - {fileID: 1689692988}
@@ -4217,20 +4217,20 @@ MonoBehaviour:
   - {fileID: 1323031168}
   - {fileID: 702750807}
   - {fileID: 1852215804}
-  - {fileID: 1145001474}
   - {fileID: 55793702}
   - {fileID: 1691680781}
+  - {fileID: 1145001474}
   - {fileID: 194303632}
   - {fileID: 443084103}
   - {fileID: 609822867}
   - {fileID: 1132129895}
   - {fileID: 260300242}
-  - {fileID: 313788365}
+  - {fileID: 1422521975}
   - {fileID: 1477813058}
   - {fileID: 1329435469}
   - {fileID: 1384027079}
   - {fileID: 218433056}
-  - {fileID: 1422521975}
+  - {fileID: 313788365}
   - {fileID: 1866357778}
 --- !u!1001 &865795443
 Prefab:
@@ -5929,7 +5929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damping: 0.3
-  _confinementZone: {x: 2.58, y: 4.91}
+  _confinementZone: {x: 8, y: 8.5}
 --- !u!1001 &1253166614
 Prefab:
   m_ObjectHideFlags: 0
@@ -6548,26 +6548,6 @@ Prefab:
     - target: {fileID: 4880880709649168, guid: d69add1ad9c90a94c8653f9da30430b5, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212584476488468684, guid: d69add1ad9c90a94c8653f9da30430b5,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0.203
-      objectReference: {fileID: 0}
-    - target: {fileID: 212584476488468684, guid: d69add1ad9c90a94c8653f9da30430b5,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.49264705
-      objectReference: {fileID: 0}
-    - target: {fileID: 212584476488468684, guid: d69add1ad9c90a94c8653f9da30430b5,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.49264705
-      objectReference: {fileID: 0}
-    - target: {fileID: 212584476488468684, guid: d69add1ad9c90a94c8653f9da30430b5,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d69add1ad9c90a94c8653f9da30430b5, type: 2}
@@ -7336,77 +7316,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4073969343898820, guid: 4f447bdba5f394f43933c505d70004e4,
     type: 2}
   m_PrefabInternal: {fileID: 1530888397}
---- !u!1 &1533302186
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1533302187}
-  - component: {fileID: 1533302188}
-  m_Layer: 0
-  m_Name: New Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1533302187
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1533302186}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.72218084, y: 0.5341579, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1374095849}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1533302188
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1533302186}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
 --- !u!1001 &1555683360
 Prefab:
   m_ObjectHideFlags: 0
