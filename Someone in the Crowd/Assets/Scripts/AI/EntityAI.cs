@@ -71,6 +71,8 @@ namespace SITC.AI
         {
             Gizmos.color = AiConfiguration.AiTargetGizmoColor;
             _positions.ForEach(DrawTarget);
+            Gizmos.color = AiConfiguration.AiTargetLinkGizmoColor;
+            DrawLinks();
         }
 
         private void DrawTarget(Transform target)
@@ -83,6 +85,22 @@ namespace SITC.AI
             string targetText = _positions.IndexOf(target).ToString();
             Gizmos.DrawSphere(target.position, AiConfiguration.AiTargetGizmoRadius);
             UnityEditor.Handles.Label(target.position, targetText, AiConfiguration.BoldStyle);
+        }
+
+        private void DrawLinks()
+        {
+            if (_positions.Count < 2)
+            {
+                return;
+            }
+
+            for (int i = 0, count = _positions.Count; i < count; i++)
+            {
+                int next = (i + 1 == count)
+                    ? 0
+                    : i + 1;
+                Gizmos.DrawLine(_positions[i].position, _positions[next].position);
+            }
         }
         #endregion Debug
     }
