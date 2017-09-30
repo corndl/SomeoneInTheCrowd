@@ -48,6 +48,12 @@ namespace SITC
             
             transform.position += translation;
             transform.position = transform.position.SetZ(transform.position.y / 100f);
+
+            bool flipX = translation.x <= 0f;
+            _body.FlipX(flipX);
+            _hair.FlipX(flipX);
+            _face.FlipX(flipX);
+            _head.FlipX(flipX);
         }
 
         public void SetConviction(float conviction)
