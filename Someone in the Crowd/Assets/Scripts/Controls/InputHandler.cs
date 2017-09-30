@@ -43,7 +43,7 @@ namespace SITC.Controls
 
             if (translation != Vector3.zero)
             {
-                Entity.Move(translation);
+                Entity.Move(translation.normalized);
             }
         }
 

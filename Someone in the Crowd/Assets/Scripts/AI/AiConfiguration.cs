@@ -8,6 +8,10 @@ namespace SITC
         #region Members
         [Header("Pathfinding"), SerializeField]
         private float _targetReachedDistance = 0.1f;
+        [SerializeField]
+        private float _maxDelayBeforeNextTarget = 3f;
+        [SerializeField]
+        private float _minimumSpeedRatio = .5f;
 
         [Header("Debug"), SerializeField]
         private Color _aiTargetGizmoColor = Color.red;
@@ -19,6 +23,8 @@ namespace SITC
 
         #region Public getters
         public static float TargetReachedDistance { get { return (Instance != null) ? Instance._targetReachedDistance : 1f; } }
+        public static float MaxDelayBeforeNextTarget { get { return (Instance != null) ? Instance._maxDelayBeforeNextTarget : 1f; } }
+        public static float MinimumSpeedRatio { get { return (Instance != null) ? Instance._minimumSpeedRatio : 1f; } }
         public static Color AiTargetGizmoColor { get { return (Instance != null) ? Instance._aiTargetGizmoColor : Color.red; } }
         public static float AiTargetGizmoRadius { get { return (Instance != null) ? Instance._aiTargetGizmoRadius : 1f; } }
         public static Color AiTargetLinkGizmoColor { get { return (Instance != null) ? Instance._aiTargetLinkGizmoColor : Color.red; } }

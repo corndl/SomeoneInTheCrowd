@@ -15,7 +15,10 @@ namespace SITC.AI
         #region Private members
         private Entity _entity = null;
         private Transform _target = null;
+        private float _targetReachedTime = 0f;
+        private float _delayBeforeNextTarget = 0f;
         private float _alertTime = 0f;
+        private float _currentSpeed = 1f;
         #endregion Private members
 
         #region Getters
@@ -46,8 +49,16 @@ namespace SITC.AI
         #region Pathfinding
         private void Pathfinding()
         {
+            if (_targetReachedTime + _delayBeforeNextTarget > Time.time)
+            {
+                return;
+            }
+
             if (ReachedCurrentTarget())
             {
+                _targetReachedTime = Time.time;
+                _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
+                _delayBeforeNextTarget = Random.Range(0f, AiConfiguration.MaxDelayBeforeNextTarget);
                 _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
             }
 
@@ -71,7 +82,8 @@ namespace SITC.AI
                 return;
             }
 
-            Entity.Move(_target.position - transform.position);
+            Vector3 direction = (_target.position - transform.position).normalized * _currentSpeed;
+            Entity.Move(direction);
         }
         #endregion Pathfinding
 
