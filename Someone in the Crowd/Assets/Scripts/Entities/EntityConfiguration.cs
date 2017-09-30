@@ -33,6 +33,7 @@ namespace SITC
         private Sprite _oppressorSprite = null;
         [SerializeField]
         private Sprite _neutralSprite = null;
+        [SerializeField]
         private float _minimumConvictionForResistant = .5f;
         [SerializeField]
         private Sprite _resistantSprite = null;
@@ -47,7 +48,7 @@ namespace SITC
         public static AnimationCurve InfluenceFactor { get { return (Instance != null) ? Instance._influenceFactor : new AnimationCurve(); } }
         
         public static List<Sprite> HairSprites { get { return (Instance != null) ? Instance._hairSprites : null; } }
-        public static List<Sprite> HeadSprites { get { return (Instance != null) ? Instance._hairSprites : null; } }
+        public static List<Sprite> HeadSprites { get { return (Instance != null) ? Instance._headSprites : null; } }
         public static List<Sprite> BodySprites { get { return (Instance != null) ? Instance._bodySprites : null; } }
 
         public static float MinimumConvictionForOppressor { get { return (Instance != null) ? Instance._minimumConvictionForOppressor : -.5f; } }
