@@ -18,9 +18,11 @@ namespace SITC
         #endregion Lifecycle
 
         #region API
+        /// <summary>
+        /// Does not normalize vector !
+        /// </summary>
         public void Move(Vector3 translation)
         {
-            translation = translation.normalized;
             translation *= EntityConfiguration.EntitySpeed;
             translation *= Time.deltaTime;
 

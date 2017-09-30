@@ -1205,6 +1205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetReachedDistance: 0.1
+  _maxDelayBeforeNextTarget: 0.5
+  _minimumSpeedRatio: 0.5
   _aiTargetGizmoColor: {r: 1, g: 0, b: 0, a: 0.472}
   _aiTargetGizmoRadius: 0.3
   _aiTargetLinkGizmoColor: {r: 1, g: 0, b: 1, a: 1}
