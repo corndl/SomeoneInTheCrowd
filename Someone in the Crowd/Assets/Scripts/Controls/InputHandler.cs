@@ -22,6 +22,8 @@ namespace SITC.Controls
         [Header("Cone"), SerializeField]
         private float _coneMinimumSize = 1f;
         [SerializeField]
+        private float _coneMaximumSize = 5f;
+        [SerializeField]
         private float _coneAngle = 45f;
         [SerializeField]
         private float _coneGrowthFactor = 1f;
@@ -185,7 +187,7 @@ namespace SITC.Controls
             {
                 _cone = _coneMinimumSize;
             }
-            else
+            else if (_cone < _coneMaximumSize)
             {
                 _cone += _coneGrowthFactor * Time.deltaTime;
             }
