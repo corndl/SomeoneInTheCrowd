@@ -24,9 +24,13 @@ namespace SITC.Controls
         [SerializeField]
         private float _coneMaximumSize = 5f;
         [SerializeField]
-        private float _coneAngle = 45f;
-        [SerializeField]
         private float _coneGrowthFactor = 1f;
+        [SerializeField]
+        private float _coneMinimumAngle = 45f;
+        [SerializeField]
+        private float _coneMaximumAngle = 45f;
+        [SerializeField]
+        private float _coneAngleGrowthFactor = 10f;
 
         [Header("Cone rendering"), SerializeField]
         private LineRenderer _left = null;
@@ -39,6 +43,8 @@ namespace SITC.Controls
         #region Private members
         private Entity _entity = null;
         private Camera _camera = null;
+        private float _cone = 0f;
+        private float _coneAngle = 0f;
         #endregion Private members
 
         #region Getters
@@ -152,8 +158,6 @@ namespace SITC.Controls
         #endregion Movement
 
         #region Cone
-        private float _cone = 0f;
-
         private void GetCone()
         {
             if (CanGrowCone())
@@ -190,6 +194,15 @@ namespace SITC.Controls
             else if (_cone < _coneMaximumSize)
             {
                 _cone += _coneGrowthFactor * Time.deltaTime;
+            }
+
+            if (_coneAngle == 0f)
+            {
+                _coneAngle = _coneMinimumAngle;
+            }
+            else if (_coneAngle < _coneMaximumAngle)
+            {
+                _coneAngle += _coneAngleGrowthFactor * Time.deltaTime;
             }
         }
 

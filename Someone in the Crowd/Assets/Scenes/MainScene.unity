@@ -202,7 +202,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -517,7 +517,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -916,8 +916,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _confinementZone: {x: 14, y: 7}
   _coneMinimumSize: 1
-  _coneAngle: 45
+  _coneMaximumSize: 5
   _coneGrowthFactor: 1
+  _coneMinimumAngle: 45
+  _coneMaximumAngle: 90
+  _coneAngleGrowthFactor: 10
   _left: {fileID: 227687589}
   _right: {fileID: 1696100267}
   _joint: {fileID: 875192981}
@@ -1102,7 +1105,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
