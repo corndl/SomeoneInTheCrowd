@@ -7,18 +7,31 @@ namespace SITC.AI
     [RequireComponent(typeof(Entity))]
     public class EntityAI : SitcBehaviour
     {
+        #region Data structures
+        public enum EAIState
+        {
+            RoamingPatrol,
+            OppressionGoToEntity,
+            OppressionTakeAwayEntity,
+            OppressedTakenAway,
+            Witness
+        }
+        #endregion Data structures
+
         #region Members
         [SerializeField]
-        private float _alertDuration = 2f;
+        private float _witnessDuration = 2f;
         #endregion Members
 
         #region Private members
         private Entity _entity = null;
+        private EAIState _currentState = EAIState.RoamingPatrol;
         private Transform _target = null;
         private float _targetReachedTime = 0f;
         private float _delayBeforeNextTarget = 0f;
-        private float _alertTime = 0f;
+        private float _witnessTime = 0f;
         private float _currentSpeed = 1f;
+        private bool _oppressor = false;
         #endregion Private members
 
         #region Getters
@@ -30,7 +43,29 @@ namespace SITC.AI
         {
             base.DoUpdate();
 
-            if (! CheckAlert())
+            if (! _oppressor
+                && Entity.GetConviction() == -1f)
+            {
+                _oppressor = true;
+                _currentState = EAIState.OppressionGoToEntity;
+            }
+
+            switch (_currentState)
+            {
+                case EAIState.RoamingPatrol:
+                    Pathfinding();
+                    break;
+
+                case EAIState.Witness:
+                    if (! CheckWitness())
+                    {
+                        _currentState = EAIState.RoamingPatrol;
+                    }
+                    Pathfinding();
+                    break;
+            }
+
+            if (! CheckWitness())
             {
                 Pathfinding();
             }
@@ -40,9 +75,18 @@ namespace SITC.AI
         #region API
         public void Alert(float conviction)
         {
+            if (_currentState != EAIState.Witness)
+            {
+                return;
+            }
+
             Debug.Log(name + " was alerted");
             Entity.AddConviction(conviction);
-            _alertTime = Time.time;
+        }
+
+        public void SetWitness()
+        {
+            _witnessTime = Time.time;
         }
         #endregion API
 
@@ -88,9 +132,9 @@ namespace SITC.AI
         #endregion Pathfinding
 
         #region Alert
-        private bool CheckAlert()
+        private bool CheckWitness()
         {
-            return _alertTime + _alertDuration > Time.time;
+            return _witnessTime + _witnessDuration > Time.time;
         }
         #endregion Alert
     }
