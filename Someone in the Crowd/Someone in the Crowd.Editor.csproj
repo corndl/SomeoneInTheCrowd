@@ -125,10 +125,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AI\Editor\AiPatrolPointsEditor.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\OutlineShader.shader" />
-    <None Include="Assets\Sprite-Outline.shader" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
