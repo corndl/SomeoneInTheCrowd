@@ -19,7 +19,7 @@ namespace SITC.Entities
         protected override void Init()
         {
             base.Init();
-            RandomizeInitialConviction();            
+            RandomizeInitialConviction();
         }
 
         protected override void DoUpdate()
