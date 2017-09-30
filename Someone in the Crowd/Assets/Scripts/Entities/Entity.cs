@@ -7,6 +7,8 @@ namespace SITC
     {
         #region Members
         [SerializeField]
+        private SpriteRenderer _face = null;
+        [SerializeField]
         private SpriteRenderer _hair = null;
         [SerializeField]
         private SpriteRenderer _head = null;
@@ -50,11 +52,27 @@ namespace SITC
         public void SetConviction(float conviction)
         {
             _conviction = conviction;
+            Sprite sprite;
+
+            if (_conviction < EntityConfiguration.MinimumConvictionForOppressor)
+            {
+                sprite = EntityConfiguration.OppressorSprite;
+            }
+            else if (_conviction > EntityConfiguration.MinimumConvictionForResistant)
+            {
+                sprite = EntityConfiguration.ResistantSprite;
+            }
+            else
+            {
+                sprite = EntityConfiguration.NeutralSprite;
+            }
+
+            _face.SetSprite(sprite);
         }
 
         public void AddConviction(float delta)
         {
-            _conviction += delta;
+            SetConviction(_conviction + delta);
         }
 
         public float GetConviction()

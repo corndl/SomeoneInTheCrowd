@@ -1,4 +1,5 @@
 ﻿using SITC.Tools;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,16 @@ namespace SITC
         private List<Sprite> _headSprites = null;
         [SerializeField]
         private List<Sprite> _bodySprites = null;
+
+        [Header("Conviction sprites"), SerializeField]
+        private float _minimumConvictionForOppressor = -.5f;
+        [SerializeField]
+        private Sprite _oppressorSprite = null;
+        [SerializeField]
+        private Sprite _neutralSprite = null;
+        private float _minimumConvictionForResistant = .5f;
+        [SerializeField]
+        private Sprite _resistantSprite = null;
         #endregion Members
 
         #region Public getters
@@ -38,6 +49,12 @@ namespace SITC
         public static List<Sprite> HairSprites { get { return (Instance != null) ? Instance._hairSprites : null; } }
         public static List<Sprite> HeadSprites { get { return (Instance != null) ? Instance._hairSprites : null; } }
         public static List<Sprite> BodySprites { get { return (Instance != null) ? Instance._bodySprites : null; } }
+
+        public static float MinimumConvictionForOppressor { get { return (Instance != null) ? Instance._minimumConvictionForOppressor : -.5f; } }
+        public static Sprite OppressorSprite { get { return (Instance != null) ? Instance._oppressorSprite : null; } }
+        public static Sprite NeutralSprite { get { return (Instance != null) ? Instance._neutralSprite : null; } }
+        public static float MinimumConvictionForResistant { get { return (Instance != null) ? Instance._minimumConvictionForResistant : .5f; } }
+        public static Sprite ResistantSprite { get { return (Instance != null) ? Instance._resistantSprite : null; } }
         #endregion Public getters
     }
 }
