@@ -51,5 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73838b80340e99b4fbc26b681bc43d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0.439, b: 0.25735295, a: 1}
+  color: {r: 0, g: 1, b: 1, a: 1}
   alwaysShowGizmo: 1
