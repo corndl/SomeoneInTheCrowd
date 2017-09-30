@@ -77,6 +77,11 @@ namespace SITC
 
         public void SetConviction(float conviction)
         {
+            if (Mathf.Abs(_conviction) == 1f)
+            {
+                return;
+            }
+
             _conviction = Mathf.Clamp(conviction, -1f, 1f);
             Sprite sprite;
 
