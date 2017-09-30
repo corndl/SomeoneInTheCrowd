@@ -32,6 +32,11 @@ namespace SITC
             _conviction = conviction;
         }
 
+        public void AddConviction(float delta)
+        {
+            _conviction += delta;
+        }
+
         public float GetConviction()
         {
             return _conviction;

@@ -26,6 +26,7 @@ namespace SITC.Entities
         {
             base.DoUpdate();
             NormalizeConviction();
+            InfluenceNeighbours();
         }
         #endregion Lifecycle
         
@@ -64,7 +65,32 @@ namespace SITC.Entities
                     variation = - conviction;
                 }
 
-                entity.SetConviction(conviction + variation);
+                entity.AddConviction(variation);
+            }
+        }
+
+        private void InfluenceNeighbours()
+        {
+            foreach (var entity in Entities)
+            {
+                float conviction = entity.GetConviction();
+                float radius = EntityConfiguration.InfluenceRadius.Evaluate(conviction);
+                float influenceDelta = EntityConfiguration.InfluenceFactor.Evaluate(conviction);
+
+                if (radius == 0f 
+                    || influenceDelta == 0f)
+                {
+                    continue;
+                }
+
+                List<Entity> influenced = new List<Entity>(Entities);
+                influenced.RemoveAll(e => Vector3.Distance(entity.transform.position, e.transform.position) > radius);
+                influenced.Remove(entity);
+
+                foreach (var inf in influenced)
+                {
+                    inf.AddConviction(influenceDelta);
+                }
             }
         }
         #endregion Conviction
