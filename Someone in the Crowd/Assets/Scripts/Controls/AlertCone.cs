@@ -96,9 +96,12 @@ namespace SITC.Controls
             }
         }
 
-        public void StopCone()
+        public void StopCone(bool cancel)
         {
-            AlertBypassers();
+            if (! cancel)
+            {
+                AlertBypassers();
+            }
 
             _cone = 0f;
             _coneAngle = 0f;

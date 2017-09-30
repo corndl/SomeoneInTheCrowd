@@ -141,7 +141,11 @@ namespace SITC.Controls
         #region Cone
         private void GetCone()
         {
-            if (CanGrowCone())
+            if (MustCancelCone())
+            {
+                Cone.StopCone(true);
+            }
+            else if (CanGrowCone())
             {
                 Cone.GrowCone();
 
@@ -150,7 +154,7 @@ namespace SITC.Controls
             }
             else if (MustStopCone())
             {
-                Cone.StopCone();
+                Cone.StopCone(false);
             }
         }
 
@@ -162,7 +166,12 @@ namespace SITC.Controls
         private bool MustStopCone()
         {
             return Input.GetMouseButtonUp(0);
-        }        
+        }
+
+        private bool MustCancelCone()
+        {
+            return Input.GetMouseButtonDown(1);
+        }
         #endregion Cone
     }
 }
