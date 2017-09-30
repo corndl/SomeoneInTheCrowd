@@ -45,8 +45,9 @@ namespace SITC
         {
             translation *= EntityConfiguration.EntitySpeed;
             translation *= Time.deltaTime;
-
+            
             transform.position += translation;
+            transform.position = transform.position.SetZ(transform.position.y / 100f);
         }
 
         public void SetConviction(float conviction)
