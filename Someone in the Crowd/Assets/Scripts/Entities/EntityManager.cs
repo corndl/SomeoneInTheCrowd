@@ -75,7 +75,7 @@ namespace SITC.Entities
             {
                 float conviction = entity.GetConviction();
                 float radius = EntityConfiguration.InfluenceRadius.Evaluate(conviction);
-                float influenceDelta = EntityConfiguration.InfluenceFactor.Evaluate(conviction);
+                float influenceDelta = EntityConfiguration.InfluenceFactor.Evaluate(conviction) * Time.deltaTime;
 
                 if (radius == 0f 
                     || influenceDelta == 0f)
