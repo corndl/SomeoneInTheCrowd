@@ -61,6 +61,7 @@ namespace SITC.AI
         #region Debug
         private void OnDrawGizmosSelected()
         {
+            InitPositions();
             Gizmos.color = AiConfiguration.AiTargetGizmoColor;
             _positions.ForEach(DrawTarget);
             Gizmos.color = AiConfiguration.AiTargetLinkGizmoColor;
