@@ -14468,6 +14468,16 @@ Prefab:
       propertyPath: _maxDelayBeforeNextTarget
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114330492770813344, guid: 332b1275f11cac14dbd6eaf72b9258fe,
+        type: 2}
+      propertyPath: _witnessRange.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114330492770813344, guid: 332b1275f11cac14dbd6eaf72b9258fe,
+        type: 2}
+      propertyPath: _witnessRange.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 332b1275f11cac14dbd6eaf72b9258fe, type: 2}
   m_IsPrefabParent: 0
