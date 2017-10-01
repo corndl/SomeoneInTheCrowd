@@ -63,8 +63,9 @@ namespace SITC
             Instance._gameOver.gameObject.SetActive(false);
         }
 
-        public static void GameOver()
+        public static void GameOver(bool victory)
         {
+            Audio.AudioManager.GameOver(victory);
             Instance._inMenu = false;
             Debug.LogError("GAME OVER");
             Instance.StartCoroutine(Instance.GameOverRoutine());
