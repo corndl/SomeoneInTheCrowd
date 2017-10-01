@@ -44,6 +44,8 @@ namespace SITC.AI
 
         private float _witnessTime = 0f;
         private float _witnessDuration = 2f;
+
+        private float _pursuitDuration = 0f;
         #endregion Private members
 
         #region Getters
@@ -63,6 +65,7 @@ namespace SITC.AI
                 _violenceSign.gameObject.SetActive(false);
             }
         }
+
         protected override void DoUpdate()
         {
             base.DoUpdate();
@@ -72,6 +75,7 @@ namespace SITC.AI
             {
                 _oppressor = true;
                 _currentState = EAIState.OppressionGoToEntity;
+                _pursuitDuration = 0f;
             }
             else if (_oppressor
                 && Entity.GetConviction() != -1f)
@@ -85,8 +89,9 @@ namespace SITC.AI
             {
                 _tookAwayTime = 0f;
                 _currentState = EAIState.OppressionGoToEntity;
+                _pursuitDuration = 0f;
             }
-
+            
             switch (_currentState)
             {
                 case EAIState.RoamingPatrol:
@@ -94,7 +99,7 @@ namespace SITC.AI
                 case EAIState.OppressionTakeAwayEntity:
                     Pathfinding();
                     break;
-
+                    
                 case EAIState.Witness:
                     if (! CheckWitness())
                     {
@@ -115,6 +120,15 @@ namespace SITC.AI
                     if (_targetEntity == null)
                     {
                         _currentState = EAIState.RoamingPatrol;
+                    }
+                    if (_targetEntity != null)
+                    {
+                        _pursuitDuration += Time.deltaTime;
+                        if (_pursuitDuration >= AiConfiguration.MaxPursuitDuration)
+                        {
+                            _currentState = EAIState.RoamingPatrol;
+                            _targetEntity = null;
+                        }
                     }
 
                     Pathfinding();
