@@ -69,7 +69,6 @@ GameObject:
   - component: {fileID: 4629289256961102}
   - component: {fileID: 114653242164495300}
   - component: {fileID: 114417203144654134}
-  - component: {fileID: 114745746499506512}
   m_Layer: 0
   m_Name: EntityAI
   m_TagString: Untagged
@@ -496,17 +495,6 @@ MonoBehaviour:
   _hairC: {fileID: 0}
   _headC: {fileID: 212592716626268588}
   _bodyC: {fileID: 0}
---- !u!114 &114745746499506512
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1283355511933360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9222e28ff6c08854193881712c467d92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212030040411805312
 SpriteRenderer:
   m_ObjectHideFlags: 1
