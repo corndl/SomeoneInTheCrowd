@@ -160,6 +160,7 @@ namespace SITC.AI
                         _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
                         _currentState = EAIState.RoamingPatrol;
                         _delayBeforeNextTarget = Random.Range(AiConfiguration.MinMaxTakenAwayCooldownBeforeReturn.x, AiConfiguration.MinMaxTakenAwayCooldownBeforeReturn.y);
+                        Entity.SetConviction(0f, true);
                         break;
 
                     case EAIState.RoamingPatrol:

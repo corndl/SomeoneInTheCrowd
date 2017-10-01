@@ -75,9 +75,10 @@ namespace SITC
             }
         }
 
-        public void SetConviction(float conviction)
+        public void SetConviction(float conviction, bool force = false)
         {
-            if (Mathf.Abs(_conviction) == 1f)
+            if (Mathf.Abs(_conviction) == 1f
+                && ! force)
             {
                 return;
             }
