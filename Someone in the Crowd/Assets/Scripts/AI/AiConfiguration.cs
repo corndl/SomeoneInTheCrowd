@@ -32,6 +32,8 @@ namespace SITC
         private float _convictionAfterTakeAway = -.9f;
         [SerializeField]
         private float _minConvictionForTakeAway = .3f;
+        [SerializeField]
+        private float _maxPursuitDuration = 5f;
 
         [Header("Witness"), SerializeField]
         private AnimationCurve _witnessRange = null;
@@ -68,6 +70,8 @@ namespace SITC
         public static float RatioInPercentForDefeat { get { return (Instance != null) ? Instance._ratioInPercentForDefeat : 33f; } }
 
         public static float MinConvictionForTakeAway { get { return (Instance != null) ? Instance._minConvictionForTakeAway : .3f; } }
+
+        public static float MaxPursuitDuration { get { return (Instance != null) ? Instance._maxPursuitDuration : .3f; } }
         #endregion Public getters
     }
 }

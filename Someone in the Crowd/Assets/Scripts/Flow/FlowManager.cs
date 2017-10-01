@@ -13,6 +13,8 @@ namespace SITC
         [SerializeField]
         private Canvas _gameOver = null;
         [SerializeField]
+        private Canvas _victory = null;
+        [SerializeField]
         private float _gameOverScreenDuration = 2f;
         [SerializeField]
         private float _cameraFocusOrthoSize = 3f;
@@ -61,6 +63,7 @@ namespace SITC
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             Instance._menu.gameObject.SetActive(false);
             Instance._gameOver.gameObject.SetActive(false);
+            Instance._victory.gameObject.SetActive(false);
 
             Audio.AudioManager.StartGame();
         }
@@ -70,10 +73,10 @@ namespace SITC
             Audio.AudioManager.GameOver(victory);
             Instance._inMenu = false;
             Debug.LogError("GAME OVER");
-            Instance.StartCoroutine(Instance.GameOverRoutine());
+            Instance.StartCoroutine(Instance.GameOverRoutine(victory));
         }
 
-        private IEnumerator GameOverRoutine()
+        private IEnumerator GameOverRoutine(bool victory)
         {
             Camera c = FindObjectOfType<Camera>();
             Vector3 target = new Vector3(Instance._cameraFocusOrthoSize, 0f, 0f);
@@ -86,10 +89,18 @@ namespace SITC
                 yield return new WaitForEndOfFrame();
             }
 
-            Instance._gameOver.gameObject.SetActive(true);
+            if (victory)
+            {
+                Instance._victory.gameObject.SetActive(true);
+            }
+            else
+            {
+                Instance._gameOver.gameObject.SetActive(true);
+            }
             yield return new WaitForSeconds(Instance._gameOverScreenDuration);
             Instance._menu.gameObject.SetActive(true);
             Instance._gameOver.gameObject.SetActive(false);
+            Instance._victory.gameObject.SetActive(false);
             Instance._inMenu = true;
         }
 
