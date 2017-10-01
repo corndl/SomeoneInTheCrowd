@@ -1,4 +1,5 @@
-﻿using SITC.Tools;
+﻿using SITC.AI;
+using SITC.Tools;
 using UnityEngine;
 
 namespace SITC
@@ -9,6 +10,7 @@ namespace SITC
         #region Private members
         private Entity _entity = null;
         private Camera _camera = null;
+        private EntityAI _ai = null;
         #endregion Private members
 
         #region Getters
@@ -17,6 +19,12 @@ namespace SITC
         #endregion Getters
 
         #region Lifecycle
+        protected override void Init()
+        {
+            base.Init();
+            _ai = GetComponent<EntityAI>();
+        }
+
         private void OnGUI()
         {
             base.DoUpdate();
@@ -28,6 +36,18 @@ namespace SITC
             Vector3 screen = Camera.WorldToScreenPoint(transform.position);
 
             Rect rect = new Rect(screen.x, Screen.height - screen.y, size.x, size.y);
+            GUI.Box(rect, content, style);
+
+            if (_ai == null)
+            {
+                return;
+            }
+
+            label = string.Format("State : {0}", _ai.GetState());
+            content = new GUIContent(label);
+            size = style.CalcSize(content);
+            
+            rect = new Rect(screen.x, Screen.height - screen.y - size.y - 5, size.x, size.y);
             GUI.Box(rect, content, style);
         }
         #endregion Lifecycle

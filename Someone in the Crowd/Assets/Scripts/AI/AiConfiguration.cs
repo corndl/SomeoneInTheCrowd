@@ -22,8 +22,8 @@ namespace SITC
 
         [Header("Oppression"), SerializeField]
         private float _searchResistantRange = 5f;
-        //[SerializeField]
-        //private float _
+        [SerializeField]
+        private float _takeAwaySpeedRatio = .8f;
         #endregion Members
 
         #region Public getters
@@ -37,6 +37,7 @@ namespace SITC
         public static GUIStyle BoldStyle { get { GUIStyle style = new GUIStyle(); style.fontStyle = FontStyle.Bold; return style; } }
         
         public static float SearchResistantRange { get { return (Instance != null) ? Instance._searchResistantRange : 5f; } }
+        public static float TakeAwaySpeedRatio { get { return (Instance != null) ? Instance._takeAwaySpeedRatio : .8f; } }
         #endregion Public getters
     }
 }

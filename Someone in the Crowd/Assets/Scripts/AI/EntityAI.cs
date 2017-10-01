@@ -4,20 +4,20 @@ using UnityEngine;
 
 namespace SITC.AI
 {
+    #region Data structures
+    public enum EAIState
+    {
+        RoamingPatrol,
+        OppressionGoToEntity,
+        OppressionTakeAwayEntity,
+        OppressedTakenAway,
+        Witness
+    }
+    #endregion Data structures
+
     [RequireComponent(typeof(Entity))]
     public class EntityAI : SitcBehaviour
     {
-        #region Data structures
-        public enum EAIState
-        {
-            RoamingPatrol,
-            OppressionGoToEntity,
-            OppressionTakeAwayEntity,
-            OppressedTakenAway,
-            Witness
-        }
-        #endregion Data structures
-
         #region Members
         [SerializeField]
         private float _witnessDuration = 2f;
@@ -107,8 +107,14 @@ namespace SITC.AI
 
         public void SetExitTarget(Transform exit)
         {
+            _currentSpeed = AiConfiguration.TakeAwaySpeedRatio;
             _currentState = EAIState.OppressedTakenAway;
             _target = exit;
+        }
+        
+        public EAIState GetState()
+        {
+            return _currentState;
         }
         #endregion API
 
@@ -132,25 +138,28 @@ namespace SITC.AI
                 _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
                 _delayBeforeNextTarget = Random.Range(0f, AiConfiguration.MaxDelayBeforeNextTarget);
 
-                if (_currentState == EAIState.RoamingPatrol)
+                switch (_currentState)
                 {
-                    _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
-                }
-                else if (_currentState == EAIState.OppressionGoToEntity)
-                {
-                    _currentState = EAIState.OppressionTakeAwayEntity;
-                    EntityManager.TakeAway(Entity, _targetEntity);
-                    _target = AiExitPoints.GetClosestExit(transform.position);
-                    
-                    if (_targetEntity.GetComponent<EntityAI>())
-                    {
-                        _targetEntity.GetComponent<EntityAI>().SetExitTarget(_target);
-                    }
-                }
-                else if (_currentState == EAIState.OppressionTakeAwayEntity)
-                {
-                    _currentState = EAIState.RoamingPatrol;
-                    _target = AiPatrolPoints.GetNextTargetAfterTakeAway(transform.position);
+                    case EAIState.RoamingPatrol:
+                        _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
+                        break;
+
+                    case EAIState.OppressionGoToEntity:
+                        _currentState = EAIState.OppressionTakeAwayEntity;
+                        EntityManager.TakeAway(Entity, _targetEntity);
+                        _target = AiExitPoints.GetClosestExit(transform.position);
+                        _currentSpeed = AiConfiguration.TakeAwaySpeedRatio;
+
+                        if (_targetEntity.GetComponent<EntityAI>())
+                        {
+                            _targetEntity.GetComponent<EntityAI>().SetExitTarget(_target);
+                        }
+                        break;
+
+                    case EAIState.OppressionTakeAwayEntity:
+                        _currentState = EAIState.RoamingPatrol;
+                        _target = AiPatrolPoints.GetNextTargetAfterTakeAway(transform.position);
+                        break;
                 }
             }
 
