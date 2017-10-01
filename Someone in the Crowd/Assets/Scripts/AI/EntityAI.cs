@@ -54,6 +54,13 @@ namespace SITC.AI
                 _oppressor = true;
                 _currentState = EAIState.OppressionGoToEntity;
             }
+            else if (_oppressor
+                && Entity.GetConviction() != -1f)
+            {
+                _oppressor = false;
+                _currentState = EAIState.RoamingPatrol;
+            }
+
             if (_tookAwayTime != 0f
                 && Time.time > _tookAwayTime + _delayBeforeTakeAway)
             {
