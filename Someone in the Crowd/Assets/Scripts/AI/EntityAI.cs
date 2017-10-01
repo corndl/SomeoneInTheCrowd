@@ -101,6 +101,7 @@ namespace SITC.AI
                 return false;
             }
 
+            Audio.AudioManager.Alerted();
             Debug.Log(name + " was alerted");
             Entity.AddConviction(conviction);
             return true;
@@ -180,6 +181,7 @@ namespace SITC.AI
                         break;
 
                     case EAIState.OppressionTakeAwayEntity:
+                        Entity.SetConviction(AiConfiguration.ConvictionAfterTakeAway, true);
                         _currentState = EAIState.RoamingPatrol;
                         _target = AiPatrolPoints.GetNextTargetAfterTakeAway(transform.position);
                         _targetEntity = null;

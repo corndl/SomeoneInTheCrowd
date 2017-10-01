@@ -121,6 +121,7 @@ namespace SITC.Controls
                 if (_cone > 0f)
                 {
                     _alertTime = Time.time;
+                    Audio.AudioManager.Alert();
                 }
             }
 

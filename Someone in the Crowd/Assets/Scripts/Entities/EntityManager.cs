@@ -62,14 +62,19 @@ namespace SITC.Entities
             return target;
         }
         
+        public static void StopAll()
+        {
+            Instance.Entities.ForEach(e => e.Stop());
+        }
+
         public static void TakeAway(Entity oppressor, Entity oppressed)
         {
             Debug.Log(oppressor.name + " took away " + oppressed.name + " !");
             
             if (oppressed.GetComponent<InputHandler>() != null)
             {
-                Instance.Entities.ForEach(e => e.Stop());
-                FlowManager.GameOver();
+                StopAll();
+                FlowManager.GameOver(false);
             }
 
             if (Instance == null)
@@ -101,6 +106,8 @@ namespace SITC.Entities
             {
                 Instance.TakenAway.Remove(entity); 
             }
+            Debug.Log("Exit map");
+            Audio.AudioManager.ExitMap();
         }
 
         public static float[] GetRatios()
@@ -134,6 +141,13 @@ namespace SITC.Entities
             ratios[0] *= 100f / Instance.Entities.Count;
             ratios[1] *= 100f / Instance.Entities.Count;
             ratios[2] *= 100f / Instance.Entities.Count;
+
+            if (ratios[2] >= AiConfiguration.RatioInPercentForVictory
+                && ! FlowManager.InMenu)
+            {
+                StopAll();
+                FlowManager.GameOver(true);
+            }
 
             return ratios;
         }

@@ -23,13 +23,23 @@ namespace SITC
         #region Private members
         private bool _inMenu = false;
         private Vector3 _velocity = Vector3.zero;
+
+        private static bool _first = true;
         #endregion Private members
 
         #region Lifecycle
         protected override void Init()
         {
             base.Init();
-            DontDestroyOnLoad(gameObject);
+
+            if (_first)
+            {
+                _first = false;
+                DontDestroyOnLoad(gameObject);
+                _inMenu = true;
+                EntityManager.StopAll();
+                Instance._menu.gameObject.SetActive(true);
+            }
         }
 
         protected override void DoUpdate()
@@ -47,14 +57,17 @@ namespace SITC
         #region API
         public void StartGame()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             _inMenu = false;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             Instance._menu.gameObject.SetActive(false);
             Instance._gameOver.gameObject.SetActive(false);
+
+            Audio.AudioManager.StartGame();
         }
 
-        public static void GameOver()
+        public static void GameOver(bool victory)
         {
+            Audio.AudioManager.GameOver(victory);
             Instance._inMenu = false;
             Debug.LogError("GAME OVER");
             Instance.StartCoroutine(Instance.GameOverRoutine());
@@ -79,6 +92,8 @@ namespace SITC
             Instance._gameOver.gameObject.SetActive(false);
             Instance._inMenu = true;
         }
+
+        public static bool InMenu { get { return Instance._inMenu; } }
         #endregion API
     }
 }

@@ -28,11 +28,16 @@ namespace SITC
         private Vector2 _minMaxTakenAwayCooldownBeforeReturn = Vector2.zero;
         [SerializeField]
         private Vector2 _minMaxTookAwayCooldownBeforeOppression = Vector2.zero;
+        [SerializeField]
+        private float _convictionAfterTakeAway = -.9f;
 
         [Header("Witness"), SerializeField]
         private AnimationCurve _witnessRange = null;
         [SerializeField]
         private AnimationCurve _witnessDuration = null;
+
+        [Header("Victory"), SerializeField]
+        private float _ratioInPercentForVictory = 33f;
         #endregion Members
 
         #region Public getters
@@ -52,6 +57,10 @@ namespace SITC
         
         public static AnimationCurve WitnessRange { get { return (Instance != null) ? Instance._witnessRange : null; } }
         public static AnimationCurve WitnessDuration { get { return (Instance != null) ? Instance._witnessDuration : null; } }
+
+        public static float ConvictionAfterTakeAway { get { return (Instance != null) ? Instance._convictionAfterTakeAway : -1f; } }
+
+        public static float RatioInPercentForVictory { get { return (Instance != null) ? Instance._ratioInPercentForVictory : 33f; } }
         #endregion Public getters
     }
 }
