@@ -41,6 +41,7 @@ namespace SITC
         #region API
         public void StartGame()
         {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             _inMenu = false;
             Instance._menu.gameObject.SetActive(false);
             Instance._gameOver.gameObject.SetActive(false);
