@@ -46,7 +46,7 @@ namespace SITC.Entities
             potentials.RemoveAll(e => Vector3.Distance(oppressor.transform.position, e.transform.position) > AiConfiguration.SearchResistantRange);
             potentials.RemoveAll(e => Instance.TakenAway.Contains(e));
 
-            float maxConviction = 0f;
+            float maxConviction = AiConfiguration.MinConvictionForTakeAway;
             Entity target = null;
 
             foreach (var entity in potentials)
@@ -147,6 +147,12 @@ namespace SITC.Entities
             {
                 StopAll();
                 FlowManager.GameOver(true);
+            }
+            else if (ratios[0] >= AiConfiguration.RatioInPercentForDefeat
+                && !FlowManager.InMenu)
+            {
+                StopAll();
+                FlowManager.GameOver(false);
             }
 
             return ratios;

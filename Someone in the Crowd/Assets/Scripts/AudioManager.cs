@@ -50,7 +50,7 @@ namespace SITC.Audio
             {
                 Instance._victory.Play();
             }
-            else
+            else if (! Instance._defeat.isPlaying)
             {
                 Instance._defeat.Play();
             }
