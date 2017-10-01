@@ -28,12 +28,14 @@ namespace SITC
         #region Private members
         private float _conviction = 0f;
         private bool _stop = false;
+        private bool _isPlayer = false;
         #endregion Private members
 
         #region Lifecycle
         protected override void Init()
         {
             base.Init();
+            _isPlayer = GetComponent<Controls.InputHandler>() != null;
 
             var s = EntityConfiguration.HairSprites.GetRandom();
             _hair.SetSprite(s);
@@ -94,7 +96,11 @@ namespace SITC
                 return;
             }
 
-            _conviction = Mathf.Clamp(conviction, -1f, 1f);
+            float minimum = (_isPlayer)
+                ? 0f
+                : -1f;
+
+            _conviction = Mathf.Clamp(conviction, minimum, 1f);
             Sprite sprite;
 
             if (_conviction < EntityConfiguration.MinimumConvictionForOppressor)
