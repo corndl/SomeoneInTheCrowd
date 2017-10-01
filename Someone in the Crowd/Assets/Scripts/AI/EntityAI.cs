@@ -21,6 +21,8 @@ namespace SITC.AI
         #region Members
         [SerializeField]
         private SpriteRenderer _witnessSign = null;
+        [SerializeField]
+        private SpriteRenderer _violenceSign = null;
         #endregion Members
 
         #region Private members
@@ -55,6 +57,10 @@ namespace SITC.AI
             if (_witnessSign != null)
             {
                 _witnessSign.gameObject.SetActive(false);
+            }
+            if (_violenceSign != null)
+            {
+                _violenceSign.gameObject.SetActive(false);
             }
         }
         protected override void DoUpdate()
@@ -182,6 +188,10 @@ namespace SITC.AI
                 {
                     EntityManager.RemoveTaken(Entity);
                 }
+                if (_violenceSign != null)
+                {
+                    _violenceSign.gameObject.SetActive(false);
+                }
 
                 _previousState = _currentState;
 
@@ -201,6 +211,12 @@ namespace SITC.AI
                     case EAIState.OppressionGoToEntity:
                         _currentState = EAIState.OppressionTakeAwayEntity;
                         EntityManager.TakeAway(Entity, _targetEntity);
+
+                        if (_violenceSign != null)
+                        {
+                            _violenceSign.gameObject.SetActive(true);
+                        }
+
                         _target = AiExitPoints.GetClosestExit(transform.position);
                         _currentSpeed = AiConfiguration.TakeAwaySpeedRatio;
 
