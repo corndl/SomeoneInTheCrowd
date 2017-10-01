@@ -18,11 +18,6 @@ namespace SITC.AI
     [RequireComponent(typeof(Entity))]
     public class EntityAI : SitcBehaviour
     {
-        #region Members
-        [SerializeField]
-        private float _witnessDuration = 2f;
-        #endregion Members
-
         #region Private members
         private Entity _entity = null;
         private EAIState _currentState = EAIState.RoamingPatrol;
@@ -41,6 +36,7 @@ namespace SITC.AI
         private float _delayBeforeTakeAway = 0f;
 
         private float _witnessTime = 0f;
+        private float _witnessDuration = 2f;
         #endregion Private members
 
         #region Getters
@@ -109,9 +105,11 @@ namespace SITC.AI
             Entity.AddConviction(conviction);
         }
 
-        public void SetWitness()
+        public void SetWitness(float duration)
         {
+            _currentState = EAIState.Witness;
             _witnessTime = Time.time;
+            _witnessDuration = duration;
         }
 
         public void SetExitTarget(Transform exit, float delay)

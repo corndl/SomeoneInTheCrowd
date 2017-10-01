@@ -1,4 +1,6 @@
-﻿using SITC.Tools;
+﻿using SITC.AI;
+using SITC.Controls;
+using SITC.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -63,6 +65,33 @@ namespace SITC.Entities
         public static void TakeAway(Entity oppressor, Entity oppressed)
         {
             Debug.Log(oppressor.name + " took away " + oppressed.name + " !");
+
+            if (oppressed.GetComponent<InputHandler>() != null)
+            {
+                Debug.LogError("GAME OVER");
+            }
+
+            if (Instance == null)
+            {
+                return;
+            }
+
+            List<Entity> entities = new List<Entity>(Instance.Entities);
+            entities.Remove(oppressed);
+            entities.Remove(oppressor);
+
+            foreach (var entity in entities)
+            {
+                float range = AiConfiguration.WitnessRange.Evaluate(entity.GetConviction());
+                EntityAI ai = entity.GetComponent<EntityAI>();
+
+                if (ai != null
+                    && Vector3.Distance(entity.transform.position, oppressed.transform.position) < range)
+                {
+                    float duration = AiConfiguration.WitnessDuration.Evaluate(entity.GetConviction());
+                    ai.SetWitness(duration);
+                }
+            }
         }
 
         public static void RemoveTaken(Entity entity)

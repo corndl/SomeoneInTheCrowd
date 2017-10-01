@@ -28,6 +28,11 @@ namespace SITC
         private Vector2 _minMaxTakenAwayCooldownBeforeReturn = Vector2.zero;
         [SerializeField]
         private Vector2 _minMaxTookAwayCooldownBeforeOppression = Vector2.zero;
+
+        [Header("Witness"), SerializeField]
+        private AnimationCurve _witnessRange = null;
+        [SerializeField]
+        private AnimationCurve _witnessDuration = null;
         #endregion Members
 
         #region Public getters
@@ -44,6 +49,9 @@ namespace SITC
         public static float TakeAwaySpeedRatio { get { return (Instance != null) ? Instance._takeAwaySpeedRatio : .8f; } }
         public static Vector2 MinMaxTakenAwayCooldownBeforeReturn { get { return (Instance != null) ? Instance._minMaxTakenAwayCooldownBeforeReturn : Vector2.zero; } }
         public static Vector2 MinMaxTookAwayCooldownBeforeOppression { get { return (Instance != null) ? Instance._minMaxTookAwayCooldownBeforeOppression : Vector2.zero; } }
+        
+        public static AnimationCurve WitnessRange { get { return (Instance != null) ? Instance._witnessRange : null; } }
+        public static AnimationCurve WitnessDuration { get { return (Instance != null) ? Instance._witnessDuration : null; } }
         #endregion Public getters
     }
 }
