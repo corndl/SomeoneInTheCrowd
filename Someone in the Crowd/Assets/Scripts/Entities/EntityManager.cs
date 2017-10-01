@@ -62,13 +62,18 @@ namespace SITC.Entities
             return target;
         }
         
+        public static void StopAll()
+        {
+            Instance.Entities.ForEach(e => e.Stop());
+        }
+
         public static void TakeAway(Entity oppressor, Entity oppressed)
         {
             Debug.Log(oppressor.name + " took away " + oppressed.name + " !");
             
             if (oppressed.GetComponent<InputHandler>() != null)
             {
-                Instance.Entities.ForEach(e => e.Stop());
+                StopAll();
                 FlowManager.GameOver();
             }
 
