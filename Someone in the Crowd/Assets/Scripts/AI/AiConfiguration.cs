@@ -40,6 +40,8 @@ namespace SITC
 
         [Header("Victory"), SerializeField]
         private float _ratioInPercentForVictory = 33f;
+        [SerializeField]
+        private float _ratioInPercentForDefeat = 50f;
         #endregion Members
 
         #region Public getters
@@ -63,7 +65,8 @@ namespace SITC
         public static float ConvictionAfterTakeAway { get { return (Instance != null) ? Instance._convictionAfterTakeAway : -1f; } }
 
         public static float RatioInPercentForVictory { get { return (Instance != null) ? Instance._ratioInPercentForVictory : 33f; } }
-        
+        public static float RatioInPercentForDefeat { get { return (Instance != null) ? Instance._ratioInPercentForDefeat : 33f; } }
+
         public static float MinConvictionForTakeAway { get { return (Instance != null) ? Instance._minConvictionForTakeAway : .3f; } }
         #endregion Public getters
     }

@@ -148,6 +148,12 @@ namespace SITC.Entities
                 StopAll();
                 FlowManager.GameOver(true);
             }
+            else if (ratios[0] >= AiConfiguration.RatioInPercentForDefeat
+                && !FlowManager.InMenu)
+            {
+                StopAll();
+                FlowManager.GameOver(false);
+            }
 
             return ratios;
         }
