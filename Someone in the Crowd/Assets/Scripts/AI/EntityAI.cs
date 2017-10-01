@@ -31,13 +31,15 @@ namespace SITC.AI
         private Transform _target = null;
         private float _targetReachedTime = 0f;
         private float _delayBeforeNextTarget = 0f;
+        private float _currentSpeed = 1f;
 
-        // Go to entity
+        // Oppression
+        private bool _oppressor = false;
         private Entity _targetEntity = null;
+        private float _tookAwayTime = 0f;
+        private float _delayBeforeTakeAway = 0f;
 
         private float _witnessTime = 0f;
-        private float _currentSpeed = 1f;
-        private bool _oppressor = false;
         #endregion Private members
 
         #region Getters
@@ -53,6 +55,12 @@ namespace SITC.AI
                 && Entity.GetConviction() == -1f)
             {
                 _oppressor = true;
+                _currentState = EAIState.OppressionGoToEntity;
+            }
+            if (_tookAwayTime != 0f
+                && Time.time > _tookAwayTime + _delayBeforeTakeAway)
+            {
+                _tookAwayTime = 0f;
                 _currentState = EAIState.OppressionGoToEntity;
             }
 
@@ -161,6 +169,9 @@ namespace SITC.AI
                     case EAIState.OppressionTakeAwayEntity:
                         _currentState = EAIState.RoamingPatrol;
                         _target = AiPatrolPoints.GetNextTargetAfterTakeAway(transform.position);
+                        _targetEntity = null;
+                        _tookAwayTime = Time.time;
+                        _delayBeforeTakeAway = Random.Range(AiConfiguration.MinMaxTookAwayCooldownBeforeOppression.x, AiConfiguration.MinMaxTookAwayCooldownBeforeOppression.y);
                         break;
                 }
             }
