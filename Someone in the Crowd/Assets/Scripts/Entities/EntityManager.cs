@@ -65,10 +65,10 @@ namespace SITC.Entities
         public static void TakeAway(Entity oppressor, Entity oppressed)
         {
             Debug.Log(oppressor.name + " took away " + oppressed.name + " !");
-
+            
             if (oppressed.GetComponent<InputHandler>() != null)
             {
-                Debug.LogError("GAME OVER");
+                FlowManager.GameOver();
             }
 
             if (Instance == null)
