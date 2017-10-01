@@ -131,11 +131,6 @@ namespace SITC
         {
             return _conviction;
         }
-
-        public void Alert()
-        {
-
-        }
         #endregion API
     }
 }

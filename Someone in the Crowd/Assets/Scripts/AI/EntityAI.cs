@@ -4,40 +4,39 @@ using UnityEngine;
 
 namespace SITC.AI
 {
+    #region Data structures
+    public enum EAIState
+    {
+        RoamingPatrol,
+        OppressionGoToEntity,
+        OppressionTakeAwayEntity,
+        OppressedTakenAway,
+        Witness
+    }
+    #endregion Data structures
+
     [RequireComponent(typeof(Entity))]
     public class EntityAI : SitcBehaviour
     {
-        #region Data structures
-        public enum EAIState
-        {
-            RoamingPatrol,
-            OppressionGoToEntity,
-            OppressionTakeAwayEntity,
-            OppressedTakenAway,
-            Witness
-        }
-        #endregion Data structures
-
-        #region Members
-        [SerializeField]
-        private float _witnessDuration = 2f;
-        #endregion Members
-
         #region Private members
         private Entity _entity = null;
         private EAIState _currentState = EAIState.RoamingPatrol;
+        private EAIState _previousState = EAIState.RoamingPatrol;
 
         // Roaming
         private Transform _target = null;
         private float _targetReachedTime = 0f;
         private float _delayBeforeNextTarget = 0f;
+        private float _currentSpeed = 1f;
 
-        // Go to entity
+        // Oppression
+        private bool _oppressor = false;
         private Entity _targetEntity = null;
+        private float _tookAwayTime = 0f;
+        private float _delayBeforeTakeAway = 0f;
 
         private float _witnessTime = 0f;
-        private float _currentSpeed = 1f;
-        private bool _oppressor = false;
+        private float _witnessDuration = 2f;
         #endregion Private members
 
         #region Getters
@@ -53,6 +52,12 @@ namespace SITC.AI
                 && Entity.GetConviction() == -1f)
             {
                 _oppressor = true;
+                _currentState = EAIState.OppressionGoToEntity;
+            }
+            if (_tookAwayTime != 0f
+                && Time.time > _tookAwayTime + _delayBeforeTakeAway)
+            {
+                _tookAwayTime = 0f;
                 _currentState = EAIState.OppressionGoToEntity;
             }
 
@@ -100,15 +105,25 @@ namespace SITC.AI
             Entity.AddConviction(conviction);
         }
 
-        public void SetWitness()
+        public void SetWitness(float duration)
         {
+            _currentState = EAIState.Witness;
             _witnessTime = Time.time;
+            _witnessDuration = duration;
         }
 
-        public void SetExitTarget(Transform exit)
+        public void SetExitTarget(Transform exit, float delay)
         {
+            _currentSpeed = AiConfiguration.TakeAwaySpeedRatio;
             _currentState = EAIState.OppressedTakenAway;
             _target = exit;
+            _delayBeforeNextTarget = delay;
+            _targetReachedTime = Time.time;
+        }
+        
+        public EAIState GetState()
+        {
+            return _currentState;
         }
         #endregion API
 
@@ -122,35 +137,48 @@ namespace SITC.AI
 
             if (ReachedCurrentTarget())
             {
-                if (_currentState == EAIState.OppressedTakenAway)
-                {
-                    Destroy(gameObject);
-                    return;
-                }
-
                 _targetReachedTime = Time.time;
                 _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
                 _delayBeforeNextTarget = Random.Range(0f, AiConfiguration.MaxDelayBeforeNextTarget);
 
-                if (_currentState == EAIState.RoamingPatrol)
+                if (_previousState == EAIState.OppressedTakenAway)
                 {
-                    _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
+                    EntityManager.RemoveTaken(Entity);
                 }
-                else if (_currentState == EAIState.OppressionGoToEntity)
+
+                _previousState = _currentState;
+
+                switch (_currentState)
                 {
-                    _currentState = EAIState.OppressionTakeAwayEntity;
-                    EntityManager.TakeAway(Entity, _targetEntity);
-                    _target = AiExitPoints.GetClosestExit(transform.position);
-                    
-                    if (_targetEntity.GetComponent<EntityAI>())
-                    {
-                        _targetEntity.GetComponent<EntityAI>().SetExitTarget(_target);
-                    }
-                }
-                else if (_currentState == EAIState.OppressionTakeAwayEntity)
-                {
-                    _currentState = EAIState.RoamingPatrol;
-                    _target = AiPatrolPoints.GetNextTargetAfterTakeAway(transform.position);
+                    case EAIState.OppressedTakenAway:
+                        _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
+                        _currentState = EAIState.RoamingPatrol;
+                        _delayBeforeNextTarget = Random.Range(AiConfiguration.MinMaxTakenAwayCooldownBeforeReturn.x, AiConfiguration.MinMaxTakenAwayCooldownBeforeReturn.y);
+                        break;
+
+                    case EAIState.RoamingPatrol:
+                        _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
+                        break;
+
+                    case EAIState.OppressionGoToEntity:
+                        _currentState = EAIState.OppressionTakeAwayEntity;
+                        EntityManager.TakeAway(Entity, _targetEntity);
+                        _target = AiExitPoints.GetClosestExit(transform.position);
+                        _currentSpeed = AiConfiguration.TakeAwaySpeedRatio;
+
+                        if (_targetEntity.GetComponent<EntityAI>())
+                        {
+                            _targetEntity.GetComponent<EntityAI>().SetExitTarget(_target, _delayBeforeNextTarget);
+                        }
+                        break;
+
+                    case EAIState.OppressionTakeAwayEntity:
+                        _currentState = EAIState.RoamingPatrol;
+                        _target = AiPatrolPoints.GetNextTargetAfterTakeAway(transform.position);
+                        _targetEntity = null;
+                        _tookAwayTime = Time.time;
+                        _delayBeforeTakeAway = Random.Range(AiConfiguration.MinMaxTookAwayCooldownBeforeOppression.x, AiConfiguration.MinMaxTookAwayCooldownBeforeOppression.y);
+                        break;
                 }
             }
 
