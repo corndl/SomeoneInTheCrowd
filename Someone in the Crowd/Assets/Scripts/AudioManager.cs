@@ -1,4 +1,5 @@
 ﻿using SITC.Tools;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SITC.Audio
@@ -10,6 +11,8 @@ namespace SITC.Audio
         private AudioSource _defeat = null;
         [SerializeField]
         private AudioSource _victory = null;
+        [SerializeField]
+        private List<AudioSource> _alert = null;
         #endregion Members
 
         #region Lifecycle
@@ -36,6 +39,14 @@ namespace SITC.Audio
             else
             {
                 Instance._defeat.Play();
+            }
+        }
+
+        public static void Alert()
+        {
+            if (Instance != null)
+            {
+                Instance._alert.GetRandom().Play();
             }
         }
         #endregion API
