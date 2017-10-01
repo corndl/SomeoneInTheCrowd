@@ -3585,22 +3585,22 @@ Prefab:
     - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
         type: 2}
       propertyPath: _convictionInitialiRepartition.m_Curve.Array.data[4].time
-      value: 0.92
+      value: 0.8603578
       objectReference: {fileID: 0}
     - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
         type: 2}
       propertyPath: _convictionInitialiRepartition.m_Curve.Array.data[3].time
-      value: 0.91
+      value: 0.85035783
       objectReference: {fileID: 0}
     - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
         type: 2}
       propertyPath: _convictionInitialiRepartition.m_Curve.Array.data[1].time
-      value: 0.08
+      value: 0.135666
       objectReference: {fileID: 0}
     - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
         type: 2}
       propertyPath: _convictionInitialiRepartition.m_Curve.Array.data[2].time
-      value: 0.09
+      value: 0.145666
       objectReference: {fileID: 0}
     - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
         type: 2}
