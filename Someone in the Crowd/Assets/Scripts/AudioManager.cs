@@ -13,6 +13,8 @@ namespace SITC.Audio
         private AudioSource _victory = null;
         [SerializeField]
         private List<AudioSource> _alert = null;
+        [SerializeField]
+        private List<AudioSource> _alerted = null;
         #endregion Members
 
         #region Lifecycle
@@ -47,6 +49,14 @@ namespace SITC.Audio
             if (Instance != null)
             {
                 Instance._alert.GetRandom().Play();
+            }
+        }
+
+        public static void Alerted()
+        {
+            if (Instance != null)
+            {
+                Instance._alerted.GetRandom().Play();
             }
         }
         #endregion API

@@ -101,6 +101,7 @@ namespace SITC.AI
                 return false;
             }
 
+            Audio.AudioManager.Alerted();
             Debug.Log(name + " was alerted");
             Entity.AddConviction(conviction);
             return true;
