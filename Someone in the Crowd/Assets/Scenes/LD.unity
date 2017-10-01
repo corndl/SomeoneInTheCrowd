@@ -3328,6 +3328,86 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionInitialiRepartition.m_Curve.Array.data[4].time
+      value: 0.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionInitialiRepartition.m_Curve.Array.data[3].time
+      value: 0.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionInitialiRepartition.m_Curve.Array.data[1].time
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionInitialiRepartition.m_Curve.Array.data[2].time
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _influenceFactor.m_Curve.Array.data[0].inSlope
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _influenceFactor.m_Curve.Array.data[0].outSlope
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _influenceFactor.m_Curve.Array.data[1].value
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _influenceFactor.m_Curve.Array.data[1].inSlope
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _influenceFactor.m_Curve.Array.data[1].outSlope
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _influenceFactor.m_Curve.Array.data[0].value
+      value: -0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionNormalizatioFactor.m_Curve.Array.data[0].inSlope
+      value: 0.49999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionNormalizatioFactor.m_Curve.Array.data[0].outSlope
+      value: 0.49999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionNormalizatioFactor.m_Curve.Array.data[1].value
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionNormalizatioFactor.m_Curve.Array.data[2].value
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionNormalizatioFactor.m_Curve.Array.data[3].inSlope
+      value: -0.49999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211032634570660, guid: 61bb84e33b26f7c4fbeae974efef4a0e,
+        type: 2}
+      propertyPath: _convictionNormalizatioFactor.m_Curve.Array.data[3].outSlope
+      value: -0.49999988
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 61bb84e33b26f7c4fbeae974efef4a0e, type: 2}
   m_IsPrefabParent: 0
