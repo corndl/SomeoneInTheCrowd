@@ -9,10 +9,12 @@ namespace SITC.Entities
     {
         #region Members
         private List<Entity> _entities = null;
+        private List<Entity> _takenAway = null;
         #endregion Members
 
         #region Getters
         private List<Entity> Entities { get { _entities = _entities ?? FindObjectsOfType<Entity>().ToList(); return _entities; } }
+        private List<Entity> TakenAway { get { _takenAway = _takenAway ?? new List<Entity>(); return _takenAway; } }
         #endregion Getters
 
         #region Lifecycle
@@ -33,8 +35,14 @@ namespace SITC.Entities
         #region API
         public static Entity GetOppressionTarget(Entity oppressor)
         {
+            if (Instance == null)
+            {
+                return null;
+            }
+
             List<Entity> potentials = new List<Entity>(Instance.Entities);
             potentials.RemoveAll(e => Vector3.Distance(oppressor.transform.position, e.transform.position) > AiConfiguration.SearchResistantRange);
+            potentials.RemoveAll(e => Instance.TakenAway.Contains(e));
 
             float maxConviction = 0f;
             Entity target = null;
@@ -48,18 +56,21 @@ namespace SITC.Entities
                 }
             }
 
+            Instance.TakenAway.Add(target);
             return target;
         }
         
         public static void TakeAway(Entity oppressor, Entity oppressed)
         {
-            if (Instance == null)
-            {
-                return;
-            }
-
-            Instance.Entities.Remove(oppressed);
             Debug.Log(oppressor.name + " took away " + oppressed.name + " !");
+        }
+
+        public static void RemoveTaken(Entity entity)
+        {
+            if (Instance != null)
+            {
+                Instance.TakenAway.Remove(entity); 
+            }
         }
         #endregion API
 

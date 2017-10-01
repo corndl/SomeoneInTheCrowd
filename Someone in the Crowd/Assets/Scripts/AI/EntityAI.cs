@@ -26,6 +26,7 @@ namespace SITC.AI
         #region Private members
         private Entity _entity = null;
         private EAIState _currentState = EAIState.RoamingPatrol;
+        private EAIState _previousState = EAIState.RoamingPatrol;
 
         // Roaming
         private Transform _target = null;
@@ -141,6 +142,13 @@ namespace SITC.AI
                 _targetReachedTime = Time.time;
                 _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
                 _delayBeforeNextTarget = Random.Range(0f, AiConfiguration.MaxDelayBeforeNextTarget);
+
+                if (_previousState == EAIState.OppressedTakenAway)
+                {
+                    EntityManager.RemoveTaken(Entity);
+                }
+
+                _previousState = _currentState;
 
                 switch (_currentState)
                 {
