@@ -61,6 +61,8 @@ namespace SITC
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             Instance._menu.gameObject.SetActive(false);
             Instance._gameOver.gameObject.SetActive(false);
+
+            Audio.AudioManager.StartGame();
         }
 
         public static void GameOver(bool victory)
@@ -90,8 +92,8 @@ namespace SITC
             Instance._gameOver.gameObject.SetActive(false);
             Instance._inMenu = true;
         }
-        #endregion API
 
         public static bool InMenu { get { return Instance._inMenu; } }
+        #endregion API
     }
 }

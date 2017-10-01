@@ -8,6 +8,8 @@ namespace SITC.Audio
     {
         #region Members
         [SerializeField]
+        private AudioSource _crowd = null;
+        [SerializeField]
         private AudioSource _defeat = null;
         [SerializeField]
         private AudioSource _victory = null;
@@ -33,6 +35,8 @@ namespace SITC.Audio
                 return;
             }
 
+            Instance._crowd.Stop();
+
             if (victory
                 && ! Instance._victory.isPlaying)
             {
@@ -41,6 +45,14 @@ namespace SITC.Audio
             else
             {
                 Instance._defeat.Play();
+            }
+        }
+
+        public static void StartGame()
+        {
+            if (Instance != null)
+            {
+                Instance._crowd.Play();
             }
         }
 
