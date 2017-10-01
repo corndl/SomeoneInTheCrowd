@@ -91,5 +91,7 @@ namespace SITC
             Instance._inMenu = true;
         }
         #endregion API
+
+        public static bool InMenu { get { return Instance._inMenu; } }
     }
 }

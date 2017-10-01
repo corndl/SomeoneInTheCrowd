@@ -74,7 +74,7 @@ namespace SITC.Entities
             if (oppressed.GetComponent<InputHandler>() != null)
             {
                 StopAll();
-                FlowManager.GameOver();
+                FlowManager.GameOver(false);
             }
 
             if (Instance == null)
@@ -139,6 +139,13 @@ namespace SITC.Entities
             ratios[0] *= 100f / Instance.Entities.Count;
             ratios[1] *= 100f / Instance.Entities.Count;
             ratios[2] *= 100f / Instance.Entities.Count;
+
+            if (ratios[2] >= AiConfiguration.RatioInPercentForVictory
+                && ! FlowManager.InMenu)
+            {
+                StopAll();
+                FlowManager.GameOver(true);
+            }
 
             return ratios;
         }

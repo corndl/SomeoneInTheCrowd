@@ -28,7 +28,8 @@ namespace SITC.Audio
                 return;
             }
 
-            if (victory)
+            if (victory
+                && ! Instance._victory.isPlaying)
             {
                 Instance._victory.Play();
             }
