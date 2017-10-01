@@ -24,6 +24,8 @@ namespace SITC
         private float _searchResistantRange = 5f;
         [SerializeField]
         private float _takeAwaySpeedRatio = .8f;
+        [SerializeField]
+        private Vector2 _minMaxTakenAwayCooldownBeforeReturn = Vector2.zero;
         #endregion Members
 
         #region Public getters
@@ -38,6 +40,7 @@ namespace SITC
         
         public static float SearchResistantRange { get { return (Instance != null) ? Instance._searchResistantRange : 5f; } }
         public static float TakeAwaySpeedRatio { get { return (Instance != null) ? Instance._takeAwaySpeedRatio : .8f; } }
+        public static Vector2 MinMaxTakenAwayCooldownBeforeReturn { get { return (Instance != null) ? Instance._minMaxTakenAwayCooldownBeforeReturn : Vector2.zero; } }
         #endregion Public getters
     }
 }

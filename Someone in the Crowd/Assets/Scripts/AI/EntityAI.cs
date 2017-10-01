@@ -105,11 +105,13 @@ namespace SITC.AI
             _witnessTime = Time.time;
         }
 
-        public void SetExitTarget(Transform exit)
+        public void SetExitTarget(Transform exit, float delay)
         {
             _currentSpeed = AiConfiguration.TakeAwaySpeedRatio;
             _currentState = EAIState.OppressedTakenAway;
             _target = exit;
+            _delayBeforeNextTarget = delay;
+            _targetReachedTime = Time.time;
         }
         
         public EAIState GetState()
@@ -128,18 +130,18 @@ namespace SITC.AI
 
             if (ReachedCurrentTarget())
             {
-                if (_currentState == EAIState.OppressedTakenAway)
-                {
-                    Destroy(gameObject);
-                    return;
-                }
-
                 _targetReachedTime = Time.time;
                 _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
                 _delayBeforeNextTarget = Random.Range(0f, AiConfiguration.MaxDelayBeforeNextTarget);
 
                 switch (_currentState)
                 {
+                    case EAIState.OppressedTakenAway:
+                        _currentSpeed = Random.Range(AiConfiguration.MinimumSpeedRatio, 1f);
+                        _currentState = EAIState.RoamingPatrol;
+                        _delayBeforeNextTarget = Random.Range(AiConfiguration.MinMaxTakenAwayCooldownBeforeReturn.x, AiConfiguration.MinMaxTakenAwayCooldownBeforeReturn.y);
+                        break;
+
                     case EAIState.RoamingPatrol:
                         _target = AiPatrolPoints.GetNextTarget(transform.position, Entity.GetConviction());
                         break;
@@ -152,7 +154,7 @@ namespace SITC.AI
 
                         if (_targetEntity.GetComponent<EntityAI>())
                         {
-                            _targetEntity.GetComponent<EntityAI>().SetExitTarget(_target);
+                            _targetEntity.GetComponent<EntityAI>().SetExitTarget(_target, _delayBeforeNextTarget);
                         }
                         break;
 
