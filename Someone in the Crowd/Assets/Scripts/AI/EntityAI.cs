@@ -126,6 +126,8 @@ namespace SITC.AI
             _target = exit;
             _delayBeforeNextTarget = delay;
             _targetReachedTime = Time.time;
+
+            Audio.AudioManager.TakeAway();
         }
         
         public EAIState GetState()
