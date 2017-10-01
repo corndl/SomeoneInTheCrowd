@@ -407,6 +407,8 @@ MonoBehaviour:
   _menu: {fileID: 223642692564184296}
   _gameOver: {fileID: 223382473948292822}
   _gameOverScreenDuration: 2
+  _cameraFocusOrthoSize: 2
+  _cameraFocusDamping: 0.9
 --- !u!222 &222458802255566986
 CanvasRenderer:
   m_ObjectHideFlags: 1
