@@ -101,6 +101,41 @@ namespace SITC.Entities
                 Instance.TakenAway.Remove(entity); 
             }
         }
+
+        public static float[] GetRatios()
+        {
+            float[] ratios = new float[3];
+
+            if (Instance == null
+                || Instance.Entities.Count == 0)
+            {
+                return ratios;
+            }
+
+            Instance.Entities.ForEach(
+                (e) =>
+                {
+                    if (e.GetConviction() < EntityConfiguration.MinimumConvictionForOppressor)
+                    {
+                        ratios[0] += 1;
+                    }
+                    else if (e.GetConviction() > EntityConfiguration.MinimumConvictionForResistant)
+                    {
+                        ratios[2] += 1;
+                    }
+                    else
+                    {
+                        ratios[1] += 1;
+                    }
+                }
+            );
+
+            ratios[0] *= 100f / Instance.Entities.Count;
+            ratios[1] *= 100f / Instance.Entities.Count;
+            ratios[2] *= 100f / Instance.Entities.Count;
+
+            return ratios;
+        }
         #endregion API
 
         #region Conviction

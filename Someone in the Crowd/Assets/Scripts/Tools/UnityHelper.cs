@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SITC.Tools
 {
@@ -63,5 +64,15 @@ namespace SITC.Tools
             return list[rand];
         }
         #endregion List
+
+        #region Text
+        public static void SetText(this Text text, string label)
+        {
+            if (text != null)
+            {
+                text.text = label;
+            }
+        }
+        #endregion Text
     }
 }
