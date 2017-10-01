@@ -30,6 +30,9 @@ namespace SITC.Controls
         private LineRenderer _rightRenderer = null;
         [SerializeField]
         private LineRenderer _jointRenderer = null;
+
+        [Header("Cooldown duration"), SerializeField]
+        private float _cooldowDuration = 0f;
         #endregion Members
 
         #region Private members
@@ -38,6 +41,7 @@ namespace SITC.Controls
         private Vector3 _left = Vector3.zero;
         private Vector3 _right = Vector3.zero;
         private Entity _entity = null;
+        private float _alertTime = 0f;
         #endregion Private members
 
         #region Getters
@@ -48,6 +52,16 @@ namespace SITC.Controls
         public bool IsActive()
         {
             return _cone > 0f && _coneAngle > 0f;
+        }
+
+        public bool InCooldown()
+        {
+            if (_alertTime == 0f)
+            {
+                return false;
+            }
+
+            return _alertTime + _cooldowDuration > Time.time;
         }
 
         public void GrowCone()
@@ -103,6 +117,11 @@ namespace SITC.Controls
             if (!cancel)
             {
                 AlertBypassers();
+
+                if (_cone > 0f)
+                {
+                    _alertTime = Time.time;
+                }
             }
 
             _cone = 0f;

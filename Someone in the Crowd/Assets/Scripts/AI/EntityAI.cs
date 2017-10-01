@@ -108,6 +108,11 @@ namespace SITC.AI
 
         public void SetWitness(float duration)
         {
+            if (Entity.GetConviction() == -1)
+            {
+                return;
+            }
+
             _currentState = EAIState.Witness;
             _witnessTime = Time.time;
             _witnessDuration = duration;

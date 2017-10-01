@@ -165,6 +165,11 @@ namespace SITC.Controls
 
         private bool CanGrowCone()
         {
+            if (Cone.InCooldown())
+            {
+                return false;
+            }
+            
             if (_canceledCone)
             {
                 if (Input.GetMouseButtonDown(0))
