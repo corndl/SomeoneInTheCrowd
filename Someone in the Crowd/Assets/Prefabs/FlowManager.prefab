@@ -599,7 +599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224246362458960858}
   - component: {fileID: 222552948411278350}
-  - component: {fileID: 111365323887123282}
+  - component: {fileID: 95089957261140112}
   m_Layer: 5
   m_Name: GameOverScreen
   m_TagString: Untagged
@@ -689,21 +689,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &111365323887123282
-Animation:
+--- !u!95 &95089957261140112
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843120503669776}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: e1db010d91c60da41870832e01124aea, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: e1db010d91c60da41870832e01124aea, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c83a745e952d87d46b7d5f2613f96bb6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114042598803768876
 MonoBehaviour:
   m_ObjectHideFlags: 1
