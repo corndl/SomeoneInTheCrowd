@@ -147,30 +147,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1658479145258178, guid: 332b1275f11cac14dbd6eaf72b9258fe, type: 2}
-      propertyPath: m_Name
-      value: AiConfiguration
-      objectReference: {fileID: 0}
-    - target: {fileID: 114330492770813344, guid: 332b1275f11cac14dbd6eaf72b9258fe,
-        type: 2}
-      propertyPath: _minMaxTakenAwayCooldownBeforeReturn.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114330492770813344, guid: 332b1275f11cac14dbd6eaf72b9258fe,
-        type: 2}
-      propertyPath: _minMaxTakenAwayCooldownBeforeReturn.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114330492770813344, guid: 332b1275f11cac14dbd6eaf72b9258fe,
-        type: 2}
-      propertyPath: _minMaxTookAwayCooldownBeforeOppression.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114330492770813344, guid: 332b1275f11cac14dbd6eaf72b9258fe,
-        type: 2}
-      propertyPath: _minMaxTookAwayCooldownBeforeOppression.y
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 332b1275f11cac14dbd6eaf72b9258fe, type: 2}
   m_IsPrefabParent: 0
