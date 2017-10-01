@@ -180,6 +180,7 @@ namespace SITC.AI
                         break;
 
                     case EAIState.OppressionTakeAwayEntity:
+                        Entity.SetConviction(AiConfiguration.ConvictionAfterTakeAway, true);
                         _currentState = EAIState.RoamingPatrol;
                         _target = AiPatrolPoints.GetNextTargetAfterTakeAway(transform.position);
                         _targetEntity = null;
