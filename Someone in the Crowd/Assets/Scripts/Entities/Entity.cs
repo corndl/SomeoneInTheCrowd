@@ -27,6 +27,7 @@ namespace SITC
 
         #region Private members
         private float _conviction = 0f;
+        private bool _stop = false;
         #endregion Private members
 
         #region Lifecycle
@@ -54,6 +55,11 @@ namespace SITC
         /// </summary>
         public void Move(Vector3 translation)
         {
+            if (_stop)
+            {
+                return;
+            }
+
             translation *= EntityConfiguration.EntitySpeed;
             translation *= Time.deltaTime;
 
@@ -73,6 +79,11 @@ namespace SITC
                 _faceC.FlipX(flipX);
                 _headC.FlipX(flipX);
             }
+        }
+
+        public void Stop()
+        {
+            _stop = true;
         }
 
         public void SetConviction(float conviction, bool force = false)

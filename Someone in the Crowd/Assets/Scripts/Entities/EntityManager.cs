@@ -68,6 +68,7 @@ namespace SITC.Entities
             
             if (oppressed.GetComponent<InputHandler>() != null)
             {
+                Instance.Entities.ForEach(e => e.Stop());
                 FlowManager.GameOver();
             }
 
