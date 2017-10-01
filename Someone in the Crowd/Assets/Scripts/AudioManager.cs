@@ -14,6 +14,8 @@ namespace SITC.Audio
         [SerializeField]
         private AudioSource _victory = null;
         [SerializeField]
+        private AudioSource _exitMap = null;
+        [SerializeField]
         private List<AudioSource> _alert = null;
         [SerializeField]
         private List<AudioSource> _alerted = null;
@@ -53,6 +55,14 @@ namespace SITC.Audio
             if (Instance != null)
             {
                 Instance._crowd.Play();
+            }
+        }
+
+        public static void ExitMap()
+        {
+            if (Instance != null)
+            {
+                Instance._exitMap.Play();
             }
         }
 

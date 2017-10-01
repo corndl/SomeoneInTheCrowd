@@ -106,6 +106,8 @@ namespace SITC.Entities
             {
                 Instance.TakenAway.Remove(entity); 
             }
+            Debug.Log("Exit map");
+            Audio.AudioManager.ExitMap();
         }
 
         public static float[] GetRatios()
