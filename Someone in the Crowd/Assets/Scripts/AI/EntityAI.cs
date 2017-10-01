@@ -18,6 +18,11 @@ namespace SITC.AI
     [RequireComponent(typeof(Entity))]
     public class EntityAI : SitcBehaviour
     {
+        #region Members
+        [SerializeField]
+        private SpriteRenderer _witnessSign = null;
+        #endregion Members
+
         #region Private members
         private Entity _entity = null;
         private EAIState _currentState = EAIState.RoamingPatrol;
@@ -44,6 +49,14 @@ namespace SITC.AI
         #endregion Getters
 
         #region Lifecycle
+        protected override void Init()
+        {
+            base.Init();
+            if (_witnessSign != null)
+            {
+                _witnessSign.gameObject.SetActive(false);
+            }
+        }
         protected override void DoUpdate()
         {
             base.DoUpdate();
@@ -54,6 +67,13 @@ namespace SITC.AI
                 _oppressor = true;
                 _currentState = EAIState.OppressionGoToEntity;
             }
+            else if (_oppressor
+                && Entity.GetConviction() != -1f)
+            {
+                _oppressor = false;
+                _currentState = EAIState.RoamingPatrol;
+            }
+
             if (_tookAwayTime != 0f
                 && Time.time > _tookAwayTime + _delayBeforeTakeAway)
             {
@@ -73,6 +93,10 @@ namespace SITC.AI
                     if (! CheckWitness())
                     {
                         _currentState = EAIState.RoamingPatrol;
+                        if (_witnessSign != null)
+                        {
+                            _witnessSign.gameObject.SetActive(false);
+                        }
                     }
                     Pathfinding();
                     break;
@@ -114,6 +138,10 @@ namespace SITC.AI
                 return;
             }
 
+            if (_witnessSign != null)
+            {
+                _witnessSign.gameObject.SetActive(true);
+            }
             _currentState = EAIState.Witness;
             _witnessTime = Time.time;
             _witnessDuration = duration;
@@ -126,6 +154,8 @@ namespace SITC.AI
             _target = exit;
             _delayBeforeNextTarget = delay;
             _targetReachedTime = Time.time;
+
+            Audio.AudioManager.TakeAway();
         }
         
         public EAIState GetState()

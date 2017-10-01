@@ -33,6 +33,11 @@ namespace SITC.Controls
 
         [Header("Cooldown duration"), SerializeField]
         private float _cooldowDuration = 0f;
+
+        [SerializeField]
+        private GameObject _sign = null;
+        [SerializeField]
+        private float _signDuration = .5f;
         #endregion Members
 
         #region Private members
@@ -47,6 +52,39 @@ namespace SITC.Controls
         #region Getters
         private Entity Entity { get { _entity = _entity ?? GetComponent<Entity>(); return _entity; } }
         #endregion Getters
+
+        #region Lifecycle
+        protected override void Init()
+        {
+            base.Init();
+
+            if (_sign)
+            {
+                _sign.SetActive(false);
+            }
+        }
+
+        protected override void DoUpdate()
+        {
+            base.DoUpdate();
+
+            if (_signDuration + _alertTime < Time.time
+                || _alertTime == 0f)
+            {
+                if (_sign)
+                {
+                    _sign.SetActive(false);
+                }
+            }
+            else
+            {
+                if (_sign)
+                {
+                    _sign.SetActive(true);
+                }
+            }
+        }
+        #endregion Lifecycle
 
         #region API
         public bool IsActive()
@@ -69,6 +107,7 @@ namespace SITC.Controls
             if (_cone == 0f)
             {
                 _cone = _coneMinimumSize;
+                _alertTime = 0f;
             }
             else if (_cone < _coneMaximumSize)
             {
@@ -122,6 +161,11 @@ namespace SITC.Controls
                 {
                     _alertTime = Time.time;
                     Audio.AudioManager.Alert();
+
+                    if (_sign)
+                    {
+                        _sign.SetActive(true);
+                    }
                 }
             }
 
