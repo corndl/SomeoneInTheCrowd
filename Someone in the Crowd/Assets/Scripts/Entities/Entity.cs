@@ -96,6 +96,15 @@ namespace SITC
                 return;
             }
 
+            if (conviction >= 1f)
+            {
+                Audio.AudioManager.ConvictionMax(true);
+            }
+            else if (conviction <= -1f)
+            {
+                Audio.AudioManager.ConvictionMax(false);
+            }
+
             float minimum = (_isPlayer)
                 ? 0f
                 : -1f;

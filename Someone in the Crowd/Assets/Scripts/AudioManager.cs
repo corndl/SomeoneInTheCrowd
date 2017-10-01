@@ -16,6 +16,10 @@ namespace SITC.Audio
         [SerializeField]
         private AudioSource _exitMap = null;
         [SerializeField]
+        private AudioSource _resistant = null;
+        [SerializeField]
+        private AudioSource _oppressor = null;
+        [SerializeField]
         private List<AudioSource> _alert = null;
         [SerializeField]
         private List<AudioSource> _alerted = null;
@@ -63,6 +67,21 @@ namespace SITC.Audio
             if (Instance != null)
             {
                 Instance._exitMap.Play();
+            }
+        }
+
+        public static void ConvictionMax(bool positive)
+        {
+            if (Instance != null)
+            {
+                if (positive)
+                {
+                    Instance._resistant.Play();
+                }
+                else
+                {
+                    Instance._oppressor.Play();
+                }
             }
         }
 
