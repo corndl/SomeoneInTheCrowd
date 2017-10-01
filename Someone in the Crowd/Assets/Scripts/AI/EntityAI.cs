@@ -18,6 +18,11 @@ namespace SITC.AI
     [RequireComponent(typeof(Entity))]
     public class EntityAI : SitcBehaviour
     {
+        #region Members
+        [SerializeField]
+        private SpriteRenderer _witnessSign = null;
+        #endregion Members
+
         #region Private members
         private Entity _entity = null;
         private EAIState _currentState = EAIState.RoamingPatrol;
@@ -44,6 +49,14 @@ namespace SITC.AI
         #endregion Getters
 
         #region Lifecycle
+        protected override void Init()
+        {
+            base.Init();
+            if (_witnessSign != null)
+            {
+                _witnessSign.gameObject.SetActive(false);
+            }
+        }
         protected override void DoUpdate()
         {
             base.DoUpdate();
@@ -80,6 +93,10 @@ namespace SITC.AI
                     if (! CheckWitness())
                     {
                         _currentState = EAIState.RoamingPatrol;
+                        if (_witnessSign != null)
+                        {
+                            _witnessSign.gameObject.SetActive(false);
+                        }
                     }
                     Pathfinding();
                     break;
@@ -121,6 +138,10 @@ namespace SITC.AI
                 return;
             }
 
+            if (_witnessSign != null)
+            {
+                _witnessSign.gameObject.SetActive(true);
+            }
             _currentState = EAIState.Witness;
             _witnessTime = Time.time;
             _witnessDuration = duration;
