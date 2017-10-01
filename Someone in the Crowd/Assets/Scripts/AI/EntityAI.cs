@@ -94,15 +94,16 @@ namespace SITC.AI
         #endregion Lifecycle
 
         #region API
-        public void Alert(float conviction)
+        public bool Alert(float conviction)
         {
             if (_currentState != EAIState.Witness)
             {
-                return;
+                return false;
             }
 
             Debug.Log(name + " was alerted");
             Entity.AddConviction(conviction);
+            return true;
         }
 
         public void SetWitness(float duration)

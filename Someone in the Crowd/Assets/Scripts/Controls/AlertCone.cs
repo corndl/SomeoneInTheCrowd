@@ -139,10 +139,20 @@ namespace SITC.Controls
             float conviction = Entity.GetConviction();
             float intensity = EntityConfiguration.AlertConvictionImpact.Evaluate(conviction);
             intensity /= entities.Count;
+            float convToAddToSelf = 0f;
 
             foreach (var ai in entities)
             {
-                ai.Alert(intensity);
+                if (ai.Alert(intensity))
+                {
+                    convToAddToSelf += intensity;
+                }
+            }
+
+            if (convToAddToSelf > 0f)
+            {
+                Debug.Log("Added " + convToAddToSelf + " to self conviction after alert");
+                Entity.AddConviction(convToAddToSelf);
             }
         }
 
